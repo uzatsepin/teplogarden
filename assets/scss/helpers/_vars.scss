@@ -1,0 +1,57 @@
+$darkGray: #2e2e2e;
+$greenLight: #6de273;
+$greenMain: #4CA750;
+
+
+$mainBeige: #ECEAE1;
+$secondaryBeige: #D0C3AE;
+$lightBeige: #FBFBF9;
+$textColor: #141414;
+$red: #8C2B02;
+$lightRed: #B53905;
+
+
+.popup-anim-enter-active, .popup-anim-leave-active {
+    transition: opacity 250ms ease-in-out, transform 250ms ease-in-out;
+}
+.popup-anim-enter, .popup-anim-leave-to {
+    opacity: 0;
+    transform: translateY(100%);
+}
+.popup-anim-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+.popup-anim-leave-active {
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+
+*::-webkit-scrollbar {
+    width: 4px;
+    border-radius: 4px;
+    margin: 15px;
+    background: transparent;
+}
+
+*::-webkit-scrollbar-track {
+    background: #EBEEF5;
+}
+
+*::-webkit-scrollbar-track:hover {
+    background: #E1E4EB;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: #FFF;
+    border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: #3F3F3F;
+}
+
+*::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
