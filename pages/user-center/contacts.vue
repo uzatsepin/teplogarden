@@ -11,6 +11,8 @@
                     height="600"
                     alt="Карта проезда к офису Teplogarden"
                     title="Карта проезда к офису Teplogarden"
+                    loading="lazy"
+                    placeholder
                 />
             </div>
             <div class="Contacts__info-contacts">
@@ -60,7 +62,6 @@
 
 <script setup lang="ts">
     const { setSeo } = useSitewide();
-
     const contacts = [
         {
             name: 'Адрес',

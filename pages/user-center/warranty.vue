@@ -11,6 +11,8 @@
                 height="350"
                 alt="Гарантия на теплицы"
                 title="Гарантия на теплицы"
+                loading="lazy"
+                placeholder
             />
             <div class="Warranty__term-text">
                 <h2 class="Warranty__term-title">12 месяцев безусловной гарантии</h2>

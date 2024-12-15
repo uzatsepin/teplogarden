@@ -9,6 +9,8 @@
                         height="450px"
                         alt="Контакты"
                         title="Контакты"
+                        loading="lazy"
+                        placeholder
                     />
                     <div class="About__image-text">
                         <h1>Про компанию <span>TeploGarden</span></h1>

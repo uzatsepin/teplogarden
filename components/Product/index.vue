@@ -14,6 +14,8 @@
                     class="Product__wrapper-img"
                     height="265"
                     :title="product.name"
+                    loading="lazy"
+                    placeholder
                 />
             </div>
             <div class="Product__badges">
@@ -36,6 +38,8 @@
                 :title="product.name"
                 @click="setActiveImage(genImageUrl(product?.collectionId, product?.id, image))"
                 class="Product__gallery-img"
+                loading="lazy"
+                placeholder
             />
         </div>
         <div class="Product__container">

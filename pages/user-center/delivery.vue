@@ -22,6 +22,8 @@
                         alt="TeploGarden доставка по всей территории России"
                         height="350"
                         class="Delivery__methods-image"
+                        loading="lazy"
+                        placeholder
                     />
                     <div class="Delivery__methods-inner">
                         <h3 class="Delivery__methods-inner-title"> Способы доставки </h3>

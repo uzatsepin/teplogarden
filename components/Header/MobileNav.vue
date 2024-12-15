@@ -69,7 +69,7 @@
                     </li>
 
                     <li class="Header__mobile-links-list">
-                        <NuxtLink to="/user-center/links" class="Header__mobile-links-link" title="Полезные ссылки">
+                        <NuxtLink to="/user-center/contacts" class="Header__mobile-links-link" title="Полезные ссылки">
                             Контакты
                         </NuxtLink>
                     </li>
