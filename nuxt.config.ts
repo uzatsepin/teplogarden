@@ -13,7 +13,19 @@ export default defineNuxtConfig({
     'vue3-carousel-nuxt',
     '@nuxt/icon',
     '@pinia/nuxt',
+    '@nuxtjs/seo',
   ],
+  image: {
+    providers: {
+      pocketbase: {
+        name: 'pocketbase',
+        provider: 'ipx',
+        options: {
+          baseURL: 'https://pb.felearn.pro'
+        }
+      }
+    }
+  },
   css: ['~/assets/scss/main.scss'],
   vite: {
     css: {
@@ -42,4 +54,22 @@ export default defineNuxtConfig({
       }
     ]
   },
+  site: {
+    url: 'https://teplogarden.ru',
+    name: 'TeploGarden - Премиальные теплицы',
+    description: 'Производство и продажа премиальных теплиц в России. Алюминиевые теплицы со стеклом, доставка и установка.',
+    defaultLocale: 'ru',
+    identity: {
+      type: 'Organization'
+    },
+  },
+
+  sitemap: {
+    enabled: true,
+    exclude: ['/admin/**'],
+  },
+
+  schemaOrg: {
+    enabled: true,
+  }
 })

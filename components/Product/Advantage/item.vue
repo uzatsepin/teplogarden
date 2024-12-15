@@ -1,7 +1,7 @@
 <template>
     <div class="ProductCardAdvantageItem">
         <div class="ProductCardAdvantageItem__img">
-            <NuxtImg :src="advantage.image" alt="ProductAdvantageItem"/>
+            <NuxtImg :src="advantage.image" alt="ProductAdvantageItem" :title="advantage.name"/>
         </div>
         <div class="ProductCardAdvantageItem__text">{{advantage.name}}</div>
         <p class="ProductCardAdvantageItem__descr">

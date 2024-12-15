@@ -5,9 +5,7 @@
             <h1 class="Catalog__title">Каталог теплиц</h1>
 
             <div class="Catalog__container">
-                <CatalogItem />
-                <CatalogItem />
-                <CatalogItem />
+                <CatalogItem v-for="category in categories" :key="category.id" :category="category"/>
             </div>
 
             <div class="Catalog__seo">
@@ -69,7 +67,49 @@
     </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useCategoriesStore } from '~/store/categoriesStore';
+const { setSeo } = useSitewide();
+
+const categoriesStore = useCategoriesStore();
+
+const { categories } = storeToRefs(categoriesStore);
+
+setSeo({
+  title: 'Все категории теплиц',
+  description: 'Полный каталог премиальных теплиц TeploGarden из алюминия со стеклом. Выбирайте теплицы разных размеров и комплектаций с доставкой и установкой.',
+  type: 'website',
+  keywords: 'каталог теплиц, теплицы категории, купить теплицу, алюминиевые теплицы каталог, стеклянные теплицы каталог, премиальные теплицы каталог',
+  robots: 'index, follow'
+});
+
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [
+      {
+        name: 'Главная',
+        item: 'https://teplogarden.ru'
+      },
+      {
+        name: 'Каталог',
+        item: 'https://teplogarden.ru/category'
+      }
+    ]
+  }),
+  defineWebPage({
+    '@type': 'CollectionPage',
+    name: 'Каталог теплиц TeploGarden',
+    description: 'Полный каталог премиальных теплиц TeploGarden',
+    hasPart: categories.value?.map(category => ({
+      '@type': 'ItemList',
+      name: category.name,
+      description: category?.name,
+      url: `https://teplogarden.ru/category/${category.slug}`
+    }))
+  })
+])
+
+</script>
 
 <style scoped lang="scss">
     .Catalog {
@@ -87,6 +127,10 @@
             width: 100%;
             gap: 16px;
             margin-top: 16px;
+
+            @media screen and (max-width: 767px) {
+                flex-direction: column;
+            }
         }
 
         &__seo {

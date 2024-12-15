@@ -18,18 +18,18 @@
                                         >Телефон</p
                                     >
                                     <a
-                                        href="tel:+79946668833"
+                                        :href="`tel:${addionalsStore.contacts[0]?.phone || '+79946668833'}`"
                                         class="About__info-inner-contacts-block-item-value"
-                                        >+7-(994)-666-88-33</a
+                                        >{{ addionalsStore.contacts[0]?.phone || '+79946668833' }}</a
                                     >
                                 </div>
                                 <div class="About__info-inner-contacts-block-item">
                                     <p class="About__info-inner-contacts-block-item-text">Email</p>
                                     <a
-                                        href="mailto:teplogarden.ru@gmail.com
+                                        :href="`mailto:${addionalsStore?.contacts[0]?.email}`
 "
                                         class="About__info-inner-contacts-block-item-value"
-                                        >teplogarden.ru@gmail.com
+                                        >{{ addionalsStore?.contacts[0]?.email || 'teplogarden.ru@gmail.com'}}
                                     </a>
                                 </div>
                                 <div class="About__info-inner-contacts-block-item">
@@ -87,7 +87,12 @@
     </section>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useAdditionalsStore } from '~/store/additionalsStore';
+
+const addionalsStore = useAdditionalsStore();
+
+</script>
 
 <style scoped lang="scss">
     .About {
@@ -99,6 +104,11 @@
             gap: 86px;
             align-items: center;
             position: relative;
+
+            @media screen and (max-width: 1365px) {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
         }
 
         &__info {
@@ -112,6 +122,17 @@
                 text-transform: uppercase;
                 max-width: 816px;
                 font-family: 'Rubik', sans-serif;
+
+                @media screen and (max-width: 1365px) {
+                    font-size: 72px;
+                    line-height: 120px;
+                }
+
+                @media screen and (max-width: 767px) {
+                    font-size: 48px;
+                    line-height: 72px;
+                    text-align: center;
+                }
             }
 
             &-descr {
@@ -119,6 +140,19 @@
                 font-weight: 700;
                 margin-top: 42px;
                 line-height: 48px;
+
+                @media screen and (max-width: 1365px) {
+                    font-size: 24px;
+                    line-height: 36px;
+                    margin-top: 24px;
+                }
+
+                @media screen and (max-width: 767px) {
+                    font-size: 18px;
+                    line-height: 24px;
+                    font-weight: 400;
+                    text-align: center;
+                }
             }
 
             &-inner {
@@ -127,11 +161,27 @@
                 align-items: center;
                 margin-top: 48px;
 
+                @media screen and (max-width: 1365px) {
+                    flex-direction: column;
+                    gap: 24px;
+                    margin-top: 24px;
+                }
+
                 &-text {
                     max-width: 250px;
                     font-size: 36px;
                     line-height: 48px;
                     font-weight: 700;
+
+                    @media screen and (max-width: 1365px) {
+                        font-size: 24px;
+                        line-height: 36px;
+                        text-align: center;
+                    }
+
+                    @media screen and (max-width: 767px) {
+                        max-width: 100%;
+                    }
                 }
 
                 &-contacts {
@@ -194,7 +244,16 @@
             z-index: 1;
 
             @supports not (backdrop-filter: blur(5px)) {
-                background: rgba(208, 195, 174, 0.8); // Fallback with higher opacity
+                background: rgba(208, 195, 174, 0.8);
+            }
+
+            @media screen and (max-width: 1365px) {
+                margin: 0 auto;
+            }
+
+            @media screen and (max-width: 767px) {
+                min-width: 100%;
+                max-width: 100%;
             }
 
             &-title {
@@ -247,6 +306,18 @@
 
             & img {
                 width: 490px;
+
+                @media screen and (max-width: 1365px) {
+                    width: 220px;
+                }
+            }
+
+            @media screen and (max-width: 1365px) {
+                z-index: -1;
+            }
+
+            @media screen and (max-width: 767px) {
+                opacity: 0.15;
             }
         }
     }

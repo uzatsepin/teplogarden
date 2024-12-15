@@ -40,6 +40,10 @@ const benefits = [
         grid-template-columns: repeat(3, 1fr);
         gap: 24px;
         margin-top: 24px;
+
+        @media screen and (max-width: 1365px) {
+            grid-template-columns: 1fr;
+        }
     }
 }
 </style>

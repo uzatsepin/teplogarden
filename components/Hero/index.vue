@@ -14,7 +14,7 @@
           />
         </div>
         <div class="Hero__img-text-title">ИННОВАЦИОННЫЕ ТЕПЛИЦЫ</div>
-        <NuxtLink to="/catalog">
+        <NuxtLink to="/category" title="Каталог">
           <OthersPrimaryButton>Открыть каталог</OthersPrimaryButton>
         </NuxtLink>
       </div>

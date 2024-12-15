@@ -60,6 +60,7 @@
 </template>
 
 <script setup lang="ts">
+const { setSeo } = useSitewide();
     const faqItems = ref([
         {
             question: 'Сколько времени занимает доставка теплицы?',
@@ -107,6 +108,40 @@
     const toggleAnswer = (index: number) => {
         faqItems.value[index].isOpen = !faqItems.value[index].isOpen;
     };
+
+    setSeo({
+  title: 'Часто задаваемые вопросы',
+  description: 'Ответы на популярные вопросы о теплицах TeploGarden. Узнайте больше о производстве, установке, гарантии и обслуживании наших теплиц.',
+  type: 'website',
+  keywords: 'вопросы о теплицах, faq теплицы, вопросы ответы teplogarden, теплицы информация, установка теплиц вопросы, обслуживание теплиц вопросы',
+  robots: 'index, follow'
+});
+
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [
+      {
+        name: 'Главная',
+        item: 'https://teplogarden.ru'
+      },
+      {
+        name: 'Вопросы и ответы',
+        item: 'https://teplogarden.ru/faq'
+      }
+    ]
+  }),
+  {
+    '@type': 'FAQPage',
+    mainEntity: faqItems.value.map(item => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer
+      }
+    }))
+  }
+])
 </script>
 
 <style scoped lang="scss">

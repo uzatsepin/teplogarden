@@ -1,75 +1,144 @@
 <template>
-    <div class="Product">
+    <div
+        class="Product"
+        :class="{ 'is-loading': status === 'pending' }"
+    >
         <div class="Product__wrapper">
-            <NuxtImg
-                src="https://placehold.co/377x265"
-                alt="ProductImage"
-            />
-
+            <div class="Product__wrapper-container">
+                <NuxtImg
+                    :src="
+                        activeImage ||
+                        genImageUrl(product?.collectionId, product?.id, product?.image)
+                    "
+                    alt="ProductImage"
+                    class="Product__wrapper-img"
+                    height="265"
+                />
+            </div>
             <div class="Product__badges">
-                <div class="Product__badges-item">Скидка</div>
+                <div
+                    class="Product__badges-item"
+                    v-if="discountPercentage"
+                    >Скидка</div
+                >
             </div>
         </div>
         <div class="Product__gallery">
             <NuxtImg
-                src="https://placehold.co/100x100"
+                v-for="(image, idx) in product?.imagesGallery"
+                :key="idx"
+                :src="genImageUrl(product?.collectionId, product?.id, image)"
+                :class="{
+                    active: activeImage === genImageUrl(product?.collectionId, product?.id, image),
+                }"
                 alt="ProductImage"
-            />
-            <NuxtImg
-                src="https://placehold.co/100x100"
-                alt="ProductImage"
-            />
-            <NuxtImg
-                src="https://placehold.co/100x100"
-                alt="ProductImage"
-            />
-            <NuxtImg
-                src="https://placehold.co/100x100"
-                alt="ProductImage"
-            />
-            <NuxtImg
-                src="https://placehold.co/100x100"
-                alt="ProductImage"
+                @click="setActiveImage(genImageUrl(product?.collectionId, product?.id, image))"
+                class="Product__gallery-img"
             />
         </div>
         <div class="Product__container">
             <NuxtLink
-                to="/product/1"
-                class="Product__container-name">Teplo M-5: 5 стёкл</NuxtLink
+                :to="`/product/${product?.slug}`"
+                class="Product__container-name"
+                :title="product.name"
+                >{{ product?.name }}</NuxtLink
+            >
+
+            <div
+                class="Product__container-reviews"
+                v-if="product?.expand?.reviews"
+            >
+                <div class="Product__container-reviews-star">
+                    <template
+                        v-for="index in 5"
+                        :key="index"
+                    >
+                        <NuxtImg
+                            :src="
+                                index <= averageRating
+                                    ? '/images/star-fill.svg'
+                                    : '/images/star-empty.svg'
+                            "
+                            alt="star"
+                            width="16"
+                            height="16"
+                        />
+                    </template>
+                </div>
+                <div class="Product__container-reviews-count">{{ reviewsCount }}</div>
+            </div>
+            <div
+                class="Product__container-reviews-empty"
+                v-else
+                >Нет отзывов</div
             >
 
             <div class="Product__container-size">
                 <h4 class="Product__container-size-title">Размеры</h4>
                 <div class="Product__container-size-block">
-                    <p class="Product__container-size-block-item">
-                        <Icon name="fluent:arrow-autofit-width-24-filled" />
-                        Длина: 2,5 м
-                    </p>
-                    <p class="Product__container-size-block-item">
-                        <Icon name="akar-icons:width" />
-                        Ширина: 1,5 м
-                    </p>
-                    <p class="Product__container-size-block-item">
-                        <Icon name="akar-icons:height" />
-                        Высота: 2,5 м
+                    <p
+                        class="Product__container-size-block-item"
+                        v-for="spec in product?.specifications"
+                    >
+                        <Icon :name="spec.icon" />
+                        {{ spec.name }} : {{ spec.value }} см
                     </p>
                 </div>
             </div>
             <div class="Product__container-price">
                 <div class="Product__container-price-old">
-                    <div class="Product__container-price-old-value">1 418 195 ₽</div>
-                    <div class="Product__container-price-old-discount">-17%</div>
+                    <div class="Product__container-price-old-value"
+                        >{{ formatPrice(Number(product?.priceOld)) }} ₽</div
+                    >
+                    <div class="Product__container-price-old-discount"
+                        >-{{ discountPercentage }}%</div
+                    >
                 </div>
-                <div class="Product__container-price-new">1 118 195 ₽</div>
+                <div class="Product__container-price-new"
+                    >{{ formatPrice(Number(product?.priceNew)) }} ₽</div
+                >
             </div>
-            <NuxtLink to="/product/1">
+            <NuxtLink title="Детальнее" :to="`/product/${product?.slug}`">
                 <OthersPrimaryButton>Детальнее</OthersPrimaryButton>
             </NuxtLink>
         </div>
     </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+    import type { IProduct } from '~/types/product.types';
+
+    const props = defineProps<{ product: IProduct; status?: string }>();
+
+    const discountPercentage = computed(() => {
+        if (!props.product?.priceOld || !props.product?.priceNew) return 0;
+        return Math.round(
+            ((Number(props.product.priceOld) - Number(props.product.priceNew)) /
+                Number(props.product.priceOld)) *
+                100,
+        );
+    });
+
+    const activeImage = ref('');
+
+    const setActiveImage = (imageUrl: string) => {
+        activeImage.value = imageUrl;
+    };
+
+    const averageRating = computed(() => {
+        const reviews = props.product?.expand?.reviews;
+        if (!reviews || !Array.isArray(reviews) || reviews.length === 0) return 0;
+
+        const sum = reviews.reduce((acc, review) => acc + (review?.rating || 0), 0);
+        return Math.round(sum / reviews.length);
+    });
+
+    const reviewsCount = computed(() => {
+        const reviews = props.product?.expand?.reviews;
+        const count = Array.isArray(reviews) ? reviews.length : 0;
+        return getDeclension(count, ['отзыв', 'отзыва', 'отзывов']);
+    });
+</script>
 
 <style scoped lang="scss">
     .Product {
@@ -78,15 +147,50 @@
         padding: 16px;
         min-width: 408px;
 
+        @media screen and (max-width: 767px) {
+            min-width: 350px;
+            max-width: 350px;
+        }
+
+        &.is-loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
         &__wrapper {
             position: relative;
 
-            & img {
-                object-fit: cover;
+            &-container {
+                position: relative;
                 width: 100%;
                 height: 265px;
+            }
+
+            &-img {
                 border-radius: 16px;
                 overflow: hidden;
+            }
+
+            &-skeleton {
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(
+                    90deg,
+                    rgba(#eee, 0) 0,
+                    rgba(#eee, 0.8) 50%,
+                    rgba(#eee, 0) 100%
+                );
+                background-size: 200% 100%;
+                animation: shimmer 1.5s infinite;
+            }
+
+            &-img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
             }
         }
 
@@ -114,10 +218,21 @@
             gap: 8px;
             margin-top: 8px;
 
-            & img {
+            &-img {
                 border-radius: 8px;
                 overflow: hidden;
                 object-fit: cover;
+                cursor: pointer;
+                transition: border 0.3s ease;
+                border: 2px solid transparent;
+
+                &:hover {
+                    border: 2px solid $lightBeige;
+                }
+
+                &.active {
+                    border: 2px solid $lightBeige;
+                }
             }
         }
 
@@ -139,11 +254,37 @@
                 }
             }
 
+            &-reviews {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                line-height: 140%;
+                justify-content: center;
+                
+                &-star {
+                    display: flex;
+                    gap: 4px;
+                }
+
+                &-count {
+                    font-size: 16px;
+                    line-height: 140%;
+                    color: #fff;
+                }
+            }
+
+            &-reviews-empty {
+                font-size: 16px;
+                line-height: 140%;
+                color: #fff;
+                text-align: center;
+            }
+
             &-size {
                 text-align: center;
 
                 &-title {
-                    color: #FFF;
+                    color: #fff;
                     font-size: 18px;
                     font-weight: 600;
                 }
@@ -153,7 +294,7 @@
                     display: flex;
                     flex-direction: column;
                     gap: 8px;
-                    color: #FFF;
+                    color: #fff;
                     font-size: 16px;
                     text-align: left;
 
@@ -224,6 +365,15 @@
                 margin-top: 8px;
                 font-size: 16px;
             }
+        }
+    }
+
+    @keyframes shimmer {
+        0% {
+            background-position: -200% 0;
+        }
+        100% {
+            background-position: 200% 0;
         }
     }
 </style>

@@ -5,19 +5,29 @@
                 <NuxtLink
                     to="/"
                     class="Header__logo"
+                    title="TeploGarden – на главную"
                 >
-                    <img
+                    <NuxtImg
                         src="/images/logo.svg"
                         alt="logo"
+                        title="TeploGarden – лого"
+                        class="Header__logo-img"
                     />
                 </NuxtLink>
+
+                <div class="Header__burger">
+                    <OthersBurgerButton
+                        :isMobileMenuActive="isMobileMenuActive"
+                        @click="openMobileMenu"
+                    />
+                </div>
                 <div
                     class="Header__catalog"
                     @click="toggleCatalogPopup"
                     @mouseenter="toggleCatalogPopup"
                     :class="{ active: isCatalogVisible }"
                 >
-                    Телпицы
+                    Каталог
                 </div>
                 <div class="Header__divider"></div>
                 <nav class="Header__nav">
@@ -26,6 +36,7 @@
                             <NuxtLink
                                 to="/user-center/delivery"
                                 class="Header__link"
+                                title="Доставка"
                                 >Доставка</NuxtLink
                             >
                         </li>
@@ -33,6 +44,7 @@
                             <NuxtLink
                                 to="/about"
                                 class="Header__link"
+                                title="О нас"
                                 >О нас</NuxtLink
                             >
                         </li>
@@ -40,6 +52,7 @@
                             <NuxtLink
                                 to="/user-center/payment"
                                 class="Header__link"
+                                title="Оплата"
                                 >Оплата</NuxtLink
                             >
                         </li>
@@ -47,6 +60,7 @@
                             <NuxtLink
                                 to="/user-center/contacts"
                                 class="Header__link"
+                                title="Контакты"
                                 >Контакты</NuxtLink
                             >
                         </li>
@@ -54,6 +68,7 @@
                             <NuxtLink
                                 to="/reviews"
                                 class="Header__link"
+                                title="Отзывы"
                                 >Отзывы</NuxtLink
                             >
                         </li>
@@ -110,10 +125,12 @@
                                         v-if="!item.children"
                                         :to="item.link"
                                         class="Header__catalog-popup-content-menu-link"
+                                        :title="item.title"
                                     >
                                         <NuxtImg
                                             :src="item.image"
                                             :alt="item.title"
+                                            :title="item.title"
                                         />
                                         <div class="Header__catalog-popup-content-menu-link-text">
                                             <p>{{ item.title }}</p>
@@ -173,16 +190,44 @@
                 >
                     <div class="Header__contact-popup-content">
                         <h3>Свяжитесь с нами</h3>
+                        <!-- Добавьте содержимое контактов здесь -->
                     </div>
                 </div>
             </div>
         </Transition>
     </header>
+
+    <HeaderMobileNav
+        :isMobileMenuActive="isMobileMenuActive"
+        @close="closeMobileMenu"
+        :categoriesData="categoriesData || []"
+    />
 </template>
 
 <script setup lang="ts">
+    import { ref, computed } from 'vue';
+    import { useCategoriesStore } from '~/store/categoriesStore';
+    import { useAsyncData } from '#app';
+
+    interface Product {
+        id: string;
+        name: string;
+        shortDescription: string;
+        image: string;
+        slug: string;
+    }
+
+    export interface Category {
+        id: string;
+        name: string;
+        shortDescription: string;
+        image: string;
+        slug: string;
+        products: Product[];
+    }
+
     interface MenuItem {
-        id: number;
+        id: string;
         title: string;
         description?: string;
         image: string;
@@ -195,146 +240,44 @@
         items: MenuItem[];
     }
 
-    const menuData: MenuItem[] = [
-        {
-            id: 1,
-            title: 'Teplo S',
-            description: 'Ширина 2200',
-            image: '/images/greenhouse/teplo-s.png',
-            children: [
-                {
-                    id: 11,
-                    title: 'Teplo S-3',
-                    description: 'Три стекла: 2’238*3’087,5*2’001',
-                    image: '/images/greenhouse/teplo-s.png',
-                    link: '/catalog/teplo-s-3',
-                },
-                {
-                    id: 12,
-                    title: 'Teplo S-5',
-                    description: 'Пять стекол: 2’238*3’087,5*3’303',
-                    image: '/images/greenhouse/teplo-s.png',
-                    link: '/catalog/teplo-s-5',
-                },
-                {
-                    id: 13,
-                    title: 'Teplo S-7',
-                    description: 'Семь стекол: 2’238*3’087,5*4’605',
-                    image: '/images/greenhouse/teplo-s.png',
-                    link: '/catalog/teplo-s-7',
-                },
-                {
-                    id: 14,
-                    title: 'Teplo S-9',
-                    description: 'Девять стекол: 2’238*3’087,5*5’907',
-                    image: '/images/greenhouse/teplo-s.png',
-                    link: '/catalog/teplo-s-9',
-                },
-                {
-                    id: 15,
-                    title: 'Teplo S-11',
-                    description: 'Одиннадцать стекол: 2’238*3’087,5*7’209',
-                    image: '/images/greenhouse/teplo-s.png',
-                    link: '/catalog/teplo-s-11',
-                },
-                {
-                    id: 16,
-                    title: 'Teplo S-13',
-                    description: 'Тринадцать стекол: 2’238*3’087,5*8’511',
-                    image: '/images/greenhouse/teplo-s.png',
-                    link: '/catalog/teplo-s-13',
-                },
-            ],
-        },
-        {
-            id: 2,
-            title: 'Teplo M',
-            description: 'Ширина 3000',
-            image: '/images/greenhouse/teplo-m.png',
-            children: [
-                {
-                    id: 12,
-                    title: 'Teplo M-5',
-                    description: 'Пять стекол: 3’000*3’087,5*3’303',
-                    image: '/images/greenhouse/teplo-s.png',
-                    link: '/catalog/teplo-s-5',
-                },
-                {
-                    id: 13,
-                    title: 'Teplo M-7',
-                    description: 'Семь стекол: 3’000*3’087,5*4’605',
-                    image: '/images/greenhouse/teplo-s.png',
-                    link: '/catalog/teplo-s-7',
-                },
-                {
-                    id: 14,
-                    title: 'Teplo M-9',
-                    description: '3’000*3’087,5*5’907',
-                    image: '/images/greenhouse/teplo-s.png',
-                    link: '/catalog/teplo-s-9',
-                },
-                {
-                    id: 15,
-                    title: 'Teplo M-11',
-                    description: 'Одиннадцать стекол: 3’000*3’087,5*7’209',
-                    image: '/images/greenhouse/teplo-s.png',
-                    link: '/catalog/teplo-s-11',
-                },
-                {
-                    id: 16,
-                    title: 'Teplo L-13',
-                    description: 'Тринадцать стекол: 3’500*3’087,5*8’511',
-                    image: '/images/greenhouse/teplo-s.png',
-                    link: '/catalog/teplo-s-13',
-                },
-            ],
-        },
-        {
-            id: 2,
-            title: 'Teplo L',
-            description: 'Ширина 3000',
-            image: '/images/greenhouse/teplo-m.png',
-            children: [
-                {
-                    id: 12,
-                    title: 'Teplo L-5',
-                    description: 'Пять стекол: 3’500*3’087,5*3’303',
-                    image: '/images/greenhouse/teplo-s.png',
-                    link: '/catalog/teplo-s-5',
-                },
-                {
-                    id: 13,
-                    title: 'Teplo L-7',
-                    description: 'Семь стекол: 3’500*3’087,5*4’605',
-                    image: '/images/greenhouse/teplo-s.png',
-                    link: '/catalog/teplo-s-7',
-                },
-                {
-                    id: 14,
-                    title: 'Teplo L-9',
-                    description: '3’500*3’087,5*5’907',
-                    image: '/images/greenhouse/teplo-s.png',
-                    link: '/catalog/teplo-s-9',
-                },
-                {
-                    id: 15,
-                    title: 'Teplo L-11',
-                    description: 'Одиннадцать стекол: 3’500*3’087,5*7’209',
-                    image: '/images/greenhouse/teplo-s.png',
-                    link: '/catalog/teplo-s-11',
-                },
-                {
-                    id: 16,
-                    title: 'Teplo L-13',
-                    description: 'Тринадцать стекол: 3’500*3’087,5*8’511',
-                    image: '/images/greenhouse/teplo-s.png',
-                    link: '/catalog/teplo-s-13',
-                },
-            ],
-        },
-    ];
+    const categoriesStore = useCategoriesStore();
+
+    const { data: categoriesData } = await useAsyncData('categories', () => {
+        return categoriesStore.fetchCategories();
+    });
+
+    const menuData = computed<MenuItem[]>(() => {
+        if (!categoriesData.value || !Array.isArray(categoriesData.value)) {
+            return [];
+        }
+        return categoriesData.value.map((category: any) => ({
+            id: category.id,
+            title: category.name,
+            description: category.shortDescription,
+            image: `/${genImageUrl(category.collectionId, category.id, category.image)}`,
+            children: category.expand.products.map((product: any) => ({
+                id: product.id,
+                title: product.name,
+                description: product.shortDescription,
+                image: `/${genImageUrl(product.collectionId, product.id, product.image)}`,
+                link: `/product/${product.slug}`,
+            })),
+        }));
+    });
+
     const isContactVisible = ref(false);
     const isCatalogVisible = ref(false);
+    const isMobileMenuActive = ref(false);
+
+    const openMobileMenu = () => {
+        isMobileMenuActive.value = true;
+        useScrollLock().lockScroll();
+    };
+
+    const closeMobileMenu = () => {
+        isMobileMenuActive.value = false;
+        useScrollLock().unlockScroll();
+    };
 
     const toggleContactPopup = () => {
         isContactVisible.value = !isContactVisible.value;
@@ -359,12 +302,12 @@
     };
 
     const currentLevel = ref(0);
-    const menuHistory = ref<MenuLevel[]>([{ title: 'Теплицы', items: menuData }]);
+    const menuHistory = ref<MenuLevel[]>([{ title: 'Каталог', items: menuData.value }]);
 
     const currentMenu = computed(() => menuHistory.value[currentLevel.value]);
 
     const openSubmenu = (item: MenuItem) => {
-        if (item.children) {
+        if (item.children && item.children.length > 0) {
             menuHistory.value.push({
                 title: item.title,
                 items: item.children,
@@ -396,6 +339,14 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+
+            @media screen and (max-width: 1365px) {
+                padding: 0 24px;
+            }
+
+            @media screen and (max-width: 767px) {
+                padding: 0 16px;
+            }
         }
 
         &__left,
@@ -404,10 +355,38 @@
             align-items: center;
         }
 
+        &__left {
+            @media screen and (max-width: 767px) {
+                justify-content: space-between;
+                width: 100%;
+            }
+        }
+
+        &__right {
+            @media screen and (max-width: 767px) {
+                display: none;
+            }
+        }
+
         &__logo {
             width: 86px;
             height: 48px;
+
+            &-img {
+                width: 100%;
+                height: 100%;
+            }
         }
+
+        &__burger {
+            @media screen and (max-width: 767px) {
+                display: flex;
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+
+        
 
         &__catalog {
             margin-left: 48px;
@@ -418,6 +397,10 @@
             padding: 8px 16px;
             border-radius: 16px;
             transition: all 250ms ease-in-out;
+
+            @media screen and (max-width: 767px) {
+                display: none;
+            }
 
             &::before {
                 content: '';
@@ -488,7 +471,7 @@
                             &-text {
                                 & p {
                                     font-weight: 700;
-                                    font-size: 28px;
+                                    font-size: 24px;
                                     line-height: 140%;
                                     transition: color 250ms ease-in-out;
 
@@ -499,7 +482,7 @@
                                 }
                                 & span {
                                     font-weight: 400;
-                                    font-size: 18px;
+                                    font-size: 16px;
                                     line-height: 140%;
                                     color: #5e5e5e;
                                 }
@@ -522,7 +505,7 @@
                 svg {
                     width: 28px;
                     height: 28px;
-                    
+
                     path {
                         transition: all 250ms ease-in-out;
                     }
@@ -541,12 +524,20 @@
             height: 50px;
             background: #dbd5bd;
             margin: 0 48px;
+
+            @media screen and (max-width: 1365px) {
+                display: none;
+            }
         }
 
         &__list {
             display: flex;
             gap: 36px;
             align-items: center;
+
+            @media screen and (max-width: 1365px) {
+                display: none;
+            }
         }
 
         &__link {
@@ -576,6 +567,15 @@
                 opacity: 1;
                 width: 100%;
             }
+
+            &.router-link-exact-active {
+                color: $red;
+            }
+
+            &.router-link-exact-active:after {
+                opacity: 1;
+                width: 100%;
+            }
         }
 
         &__contact {
@@ -588,6 +588,10 @@
             padding: 8px 16px;
             border-radius: 16px;
             transition: all 250ms ease-in-out;
+
+            @media screen and (max-width: 767px) {
+                display: none;
+            }
 
             &:before {
                 content: '';
@@ -711,20 +715,5 @@
             transform: translateY(0);
             opacity: 1;
         }
-    }
-
-    .menu-slide-enter-active,
-    .menu-slide-leave-active {
-        transition: all 0.3s ease;
-    }
-
-    .menu-slide-enter-from {
-        opacity: 0;
-        transform: translateX(30px);
-    }
-
-    .menu-slide-leave-to {
-        opacity: 0;
-        transform: translateX(-30px);
     }
 </style>

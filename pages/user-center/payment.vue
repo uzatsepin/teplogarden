@@ -81,7 +81,55 @@
     </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { setSeo } = useSitewide();
+
+setSeo({
+  title: 'Способы оплаты теплиц',
+  description: 'Информация о способах оплаты теплиц TeploGarden. Оплата наличными, банковской картой, безналичный расчет для юридических лиц.',
+  type: 'website',
+  keywords: 'оплата теплиц, способы оплаты teplogarden, как оплатить теплицу, оплата картой теплицы, безналичный расчет теплицы, оплата наличными теплицы, оплата теплицы через интернет, оплата теплицы онлайн, оплата теплицы банковской картой, оплата теплицы р/с, оплата теплицы юрлицом, оплата теплицы физлицом, оплата теплицы курьером, оплата теплицы самовывоз, оплата теплицы безопасно, оплата теплицы счет, оплата теплицы квитанция, оплата теплицы чек',
+  robots: 'index, follow'
+});
+
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [
+      {
+        name: 'Главная',
+        item: 'https://teplogarden.ru'
+      },
+      {
+        name: 'Пользователям',
+        item: 'https://teplogarden.ru/user-center'
+      },
+      {
+        name: 'Оплата',
+        item: 'https://teplogarden.ru/user-center/payment'
+      }
+    ]
+  }),
+  defineWebPage({
+    name: 'Способы оплаты теплиц TeploGarden',
+    description: 'Информация о способах оплаты теплиц',
+    mainContentOfPage: {
+      '@type': 'WebPageElement',
+      speakable: {
+        '@type': 'SpeakableSpecification',
+        cssSelector: ['.Payment__title', '.Payment-descr']
+      }
+    },
+    offers: {
+      '@type': 'Offer',
+      acceptedPaymentMethod: [
+        'CreditCard',
+        'Cash',
+        'BankTransfer'
+      ]
+    }
+  })
+])
+</script>
 
 <style scoped lang="scss">
     .Payment {

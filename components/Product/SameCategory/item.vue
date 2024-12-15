@@ -1,15 +1,17 @@
 <template>
-    <div class="ProductSameCategoryItem">
+    <NuxtLink :to="`/product/${product?.slug}`" class="ProductSameCategoryItem" :title="product?.name">
         <div class="ProductSameCategoryItem__name">{{ product?.name }}</div>
-        <div class="ProductSameCategoryItem__size">{{ product?.size }}</div>
-        <div class="ProductSameCategoryItem__price">{{ product?.price.toLocaleString('ru-RU') }} ₽ </div>
-    </div>
+        <div class="ProductSameCategoryItem__size">{{ product?.shortDescription }}</div>
+        <div class="ProductSameCategoryItem__price">{{ formatPrice(Number(product?.priceNew)) }} ₽ </div>
+    </NuxtLink>
 </template>
 
 <script setup lang="ts">
-defineProps({
-    product: Object
-})
+import type { IProduct } from '~/types/product.types';
+
+const props = defineProps<{
+    product: IProduct
+}>()
 
 </script>
 
@@ -31,11 +33,11 @@ defineProps({
         cursor: pointer;
     }
 
-    &.active {
+    &.router-link-exact-active {
         border-color: $red;
     }
 
-    &.active & {
+    &.router-link-exact-active & {
         &__name {
             color: $red;
         }

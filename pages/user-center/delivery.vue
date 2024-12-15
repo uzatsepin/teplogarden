@@ -83,11 +83,13 @@
                         Дополнительные условия
                     </h3>
                     <p class="Delivery__additional-descr">
-                        Мы предлагаем уникальное преимущество: <span>монтаж теплицы и тепличного
-                        оборудования включен в стоимость комплектации теплицы</span>. Наши профессиональные
-                        монтажники прибудут на место и установят теплицу быстро и качественно. Вам
-                        не нужно беспокоиться о самостоятельной сборке — все работы будут выполнены
-                        на высшем уровне. 
+                        Мы предлагаем уникальное преимущество:
+                        <span
+                            >монтаж теплицы и тепличного оборудования включен в стоимость
+                            комплектации теплицы</span
+                        >. Наши профессиональные монтажники прибудут на место и установят теплицу
+                        быстро и качественно. Вам не нужно беспокоиться о самостоятельной сборке —
+                        все работы будут выполнены на высшем уровне.
                         <br />
                         <br />
                         Обратившись в TeploGarden, вы получаете полный комплекс услуг: от
@@ -101,6 +103,8 @@
 </template>
 
 <script setup lang="ts">
+    const { setSeo } = useSitewide();
+
     const deliveryMethods = [
         {
             name: 'Собственная служба доставки',
@@ -121,6 +125,60 @@
             icon: 'solar:delivery-broken',
         },
     ];
+
+    setSeo({
+        title: 'Доставка и установка теплиц',
+        description:
+            'Профессиональная доставка и монтаж теплиц TeploGarden. Собственная служба доставки, бесплатная установка, гарантия качества.',
+        type: 'website',
+        keywords:
+            'доставка теплиц, установка теплиц, монтаж теплиц, сборка теплиц, доставка teplogarden, бесплатная установка теплиц, доставка теплицы, установка теплицы, монтаж теплицы, сборка теплицы, доставка теплицы москва, доставка теплицы россия, доставка теплицы цены, доставка теплицы фото, доставка теплицы купить, доставка теплицы официальный сайт, доставка теплицы отзывы, доставка теплицы каталог, доставка теплицы доставка, доставка теплицы установка, доставка теплицы бесплатно, доставка теплицы гарантия, доставка теплицы сервис, доставка теплицы поддержка, доставка теплицы собственная служба, доставка теплицы транспортные компании, доставка теплицы самовывоз, доставка теплицы склад, доставка теплицы инструкции, доставка теплицы безопасно, доставка теплицы качество',
+        robots: 'index, follow',
+    });
+
+    useSchemaOrg([
+        defineBreadcrumb({
+            itemListElement: [
+                {
+                    name: 'Главная',
+                    item: 'https://teplogarden.ru',
+                },
+                {
+                    name: 'Пользователям',
+                    item: 'https://teplogarden.ru/user-center',
+                },
+                {
+                    name: 'Доставка',
+                    item: 'https://teplogarden.ru/user-center/delivery',
+                },
+            ],
+        }),
+        {
+            '@type': 'DeliveryService',
+            name: 'TeploGarden Доставка',
+            serviceType: 'Доставка и установка теплиц',
+            areaServed: 'RU',
+            provider: {
+                '@type': 'Organization',
+                name: 'TeploGarden',
+            },
+            potentialAction: {
+                '@type': 'OrderAction',
+                target: 'https://teplogarden.ru/user-center/delivery',
+            },
+        },
+        defineWebPage({
+            name: 'Доставка и установка теплиц TeploGarden',
+            description: 'Информация о доставке и монтаже теплиц',
+            mainContentOfPage: {
+                '@type': 'WebPageElement',
+                speakable: {
+                    '@type': 'SpeakableSpecification',
+                    cssSelector: ['.Delivery__title', '.Delivery__content'],
+                },
+            },
+        }),
+    ]);
 </script>
 
 <style scoped lang="scss">
@@ -160,6 +218,17 @@
                     & span {
                         width: 28px;
                         height: 28px;
+
+                        @media screen and (max-width: 767px) {
+                            width: 48px;
+                            height: 48px;
+                        }
+                    }
+
+                    @media screen and (max-width: 767px) {
+                        flex-direction: column;
+                        gap: 8px;
+                        text-align: center;
                     }
                 }
 
@@ -180,6 +249,10 @@
                 width: 100%;
                 object-fit: cover;
                 filter: blur(4px) brightness(0.7) contrast(1.1);
+
+                @media screen and (max-width: 767px) {
+                    display: none;
+                }
             }
             &-inner {
                 position: absolute;
@@ -189,18 +262,34 @@
                 width: 100%;
                 padding: 16px;
 
+                @media screen and (max-width: 767px) {
+                    position: relative;
+                    top: unset;
+                    right: unset;
+                    transform: unset;
+                }
+
                 &-title {
                     font-size: 24px;
                     font-weight: 700;
                     margin-bottom: 16px;
                     text-align: center;
                     color: #fff;
+
+                    @media screen and (max-width: 767px) {
+                        color: $textColor;
+                    }
                 }
 
                 &-container {
                     display: flex;
                     justify-content: space-between;
                     margin-top: 32px;
+
+                    @media screen and (max-width: 767px) {
+                        flex-direction: column;
+                        gap: 16px;
+                    }
                 }
 
                 &-item {
@@ -211,24 +300,39 @@
                     text-align: center;
                     width: 30%;
 
+                    @media screen and (max-width: 767px) {
+                        width: 100%;
+                    }
+
                     &-icon {
                         width: 48px;
                         height: 48px;
                         color: #fff;
+
+                        @media screen and (max-width: 767px) {
+                            color: $textColor;
+                        }
                     }
 
                     &-title {
                         font-size: 18px;
                         font-weight: 700;
                         color: #fff;
+
+                        @media screen and (max-width: 767px) {
+                            color: $textColor;
+                        }
                     }
 
                     &-descr {
                         font-size: 16px;
                         line-height: 140%;
-                        color: $textColor;
                         margin-top: 8px;
                         color: #fff;
+
+                        @media screen and (max-width: 767px) {
+                            color: $textColor;
+                        }
                     }
                 }
             }
@@ -238,6 +342,10 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 24px;
+
+            @media screen and (max-width: 767px) {
+                grid-template-columns: 1fr;
+            }
         }
 
         &__time,

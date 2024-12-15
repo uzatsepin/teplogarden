@@ -1,18 +1,22 @@
 <template>
     <div class="Banner">
         <div class="Banner__img">
-            <NuxtImg src="/images/banner-img.png"/>
+            <NuxtImg :src="genImageUrl(bannerData.collectionId, bannerData.id, bannerData.image)"/>
         </div>
         <div class="Banner__details">
-            <div class="Banner__title">Теплицы из монолита</div>
-            <div class="Banner__offer">Купить со скидкой 20%</div>
-            <OthersPrimaryButton>Узнать детальнее</OthersPrimaryButton>
+            <div class="Banner__title">{{ bannerData?.title }}</div>
+            <div class="Banner__offer">{{bannerData.text}}</div>
+            <OthersPrimaryButton>
+                <NuxtLink :to="bannerData.link" :title="bannerData.title">Узнать детальнее</NuxtLink>
+            </OthersPrimaryButton>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import type { IBanner } from '~/types/additionals.types';
 
+const props = defineProps<{ bannerData: IBanner }>();
 </script>
 
 <style scoped lang="scss">
@@ -49,10 +53,11 @@
         line-height: 140%;
         text-align: center;
         padding: 24px;
+        color: #FFF;
     }
 
     &__offer {
-        background: rgba(81,130,87, 0.6);
+        background: rgba(181,57,5, 0.6);
         padding: 28px 14px;
         text-align: center;
         font-weight: 600;

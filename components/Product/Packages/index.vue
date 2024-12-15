@@ -9,32 +9,14 @@
 </template>
 
 <script setup lang="ts">
-const packages = [
-    {
-        id: 1,
-        title: 'Teplo Base',
-        subtitle: 'Базовий пакет',
-        descr: 'Базовая комплектация для тех, у кого есть все необходимое или кто только начинает открывать для себя новое!',
-        image: 'https://placeholder.co/131x90',
-        link: '/'
-    },
-    {
-        id: 2,
-        title: 'Teplo Optium',
-        subtitle: 'Оптимальный пакет',
-        descr: 'Вариант, где есть всґ необходимое и даже больше!',
-        image: 'https://placeholder.co/131x90',
-        link: '/'
-    },
-    {
-        id: 3,
-        title: 'Teplo Premium',
-        subtitle: 'Премиальній пакет',
-        descr: 'Гарантийный сервисный выезд 2 раза в год на первый год покупки + 1 бесплатна + консультация садовника!',
-        image: 'https://placeholder.co/131x90',
-        link: '/'
-    }
-]
+import { useAdditionalsStore } from '~/store/additionalsStore';
+
+const additionalsStore = useAdditionalsStore();
+
+const { data: packages } = await useAsyncData('product-packages', () => {
+    return additionalsStore.fetchPackages();
+})
+
 </script>
 
 <style scoped lang="scss">

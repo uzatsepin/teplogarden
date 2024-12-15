@@ -1,15 +1,17 @@
 <template>
-    <div class="ProductCategoryItem">
-        <NuxtImg :src="category?.image" width="131" height="90"/>
+    <NuxtLink :to="`/category/${category.slug}`" class="ProductCategoryItem" :title="category.name">
+        <NuxtImg :src="genImageUrl(category.collectionId, category.id, category.image)" width="131" height="90" :alt="category?.name" :title="category?.name"/>
         <h3 class="ProductCategoryItem__title">{{ category?.name }}</h3>
-        <p class="ProductCategoryItem__size">{{ category?.size }}</p>
-    </div>
+        <p class="ProductCategoryItem__size">{{ category?.width }}</p>
+    </NuxtLink>
 </template>
 
 <script setup lang="ts">
-defineProps({
-    category: Object
-})
+import type { ICategory } from '~/types/categories.types';
+
+const props = defineProps<{
+    category: ICategory
+}>()
 </script>
 
 <style scoped lang="scss">

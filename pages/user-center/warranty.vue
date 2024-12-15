@@ -9,6 +9,8 @@
             <NuxtImg
                 src="/images/warranty.jpg"
                 height="350"
+                alt="Гарантия на теплицы"
+                title="Гарантия на теплицы"
             />
             <div class="Warranty__term-text">
                 <h2 class="Warranty__term-title">12 месяцев безусловной гарантии</h2>
@@ -82,7 +84,48 @@
     </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { setSeo } = useSitewide();
+
+setSeo({
+  title: 'Гарантия на теплицы',
+  description: 'Гарантийные обязательства на теплицы TeploGarden. Узнайте про условия гарантии, сервисное обслуживание и поддержку наших клиентов.',
+  type: 'website',
+  keywords: 'гарантия на теплицы, сервисное обслуживание теплиц, гарантия teplogarden, обслуживание теплиц, ремонт теплиц, поддержка клиентов теплиц, гарантийные обязательства теплицы, гарантия на теплицы в москве, гарантия на теплицы в россии, гарантия на теплицы цены, гарантия на теплицы фото, гарантия на теплицы купить, гарантия на теплицы официальный сайт, гарантия на теплицы отзывы, гарантия на теплицы каталог, гарантия на теплицы доставка, гарантия на теплицы установка',
+  robots: 'index, follow'
+});
+
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [
+      {
+        name: 'Главная',
+        item: 'https://teplogarden.ru'
+      },
+      {
+        name: 'Пользователям',
+        item: 'https://teplogarden.ru/user-center'
+      },
+      {
+        name: 'Гарантия',
+        item: 'https://teplogarden.ru/user-center/warranty'
+      }
+    ]
+  }),
+  defineWebPage({
+    name: 'Гарантия на теплицы TeploGarden',
+    description: 'Гарантийные обязательства и сервисное обслуживание теплиц',
+    mainContentOfPage: {
+      '@type': 'WebPageElement',
+      text: 'Teplogarden предлагает не только качественную продукцию, но и полный спектр гарантийных и сервисных услуг'
+    },
+    potentialAction: {
+      '@type': 'ReadAction',
+      target: 'https://teplogarden.ru/user-center/warranty'
+    }
+  })
+])
+</script>
 
 <style scoped lang="scss">
     .Warranty {
@@ -117,6 +160,11 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
+
+                @media screen and (max-width: 767px) {
+                    width: 100%;
+                    padding: 16px;
+                }
             }
             &-title {
                 font-size: 28px;

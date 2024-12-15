@@ -1,12 +1,16 @@
 <template>
     <div class="ProductOptionsItem">
-        <h4 class="ProductOptionsItem__name">Грядки П-образные</h4>
-        <p class="ProductOptionsItem__price">+ 12000 ₽</p>
+        <h4 class="ProductOptionsItem__name">{{ option.name }}</h4>
+        <p class="ProductOptionsItem__price">+ {{ formatPrice(Number(option.price)) }} ₽</p>
     </div>
 </template>
 
 <script setup lang="ts">
+import type { IOptions } from '~/types/product.types';
 
+const props = defineProps<{
+    option: IOptions
+}>()
 </script>
 
 <style scoped lang="scss">

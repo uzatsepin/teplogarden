@@ -2,20 +2,18 @@
     <div class="ProductOptions">
         <h2 class="ProductOptions__title">Дополнительные опции</h2>
         <div class="ProductOptions__container">
-            <ProductOptionsItem />
-            <ProductOptionsItem />
-            <ProductOptionsItem />
-            <ProductOptionsItem />
-            <ProductOptionsItem />
-            <ProductOptionsItem />
-            <ProductOptionsItem />
-            <ProductOptionsItem />
-            <ProductOptionsItem />
+            <ProductOptionsItem v-for="option in options" :key="option.name" :option="option"/>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import type { IOptions } from '~/types/product.types';
+
+
+const props = defineProps<{
+    options: IOptions[]
+}>()
 
 </script>
 

@@ -14,5 +14,13 @@
     display: flex;
     flex-direction: column;
     margin: 0 auto;
+
+    @media screen and (max-width: 1365px) {
+        padding: 0 24px;
+    }
+
+    @media screen and (max-width: 767px) {
+        padding: 0 16px;
+    }
 }
 </style>

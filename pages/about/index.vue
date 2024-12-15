@@ -7,6 +7,8 @@
                     <NuxtImg
                         src="/images/contacts.jpg"
                         height="450px"
+                        alt="Контакты"
+                        title="Контакты"
                     />
                     <div class="About__image-text">
                         <h1>Про компанию <span>TeploGarden</span></h1>
@@ -41,6 +43,8 @@
                             src="/images/vegetables.png"
                             class="About__mission-ecology-img"
                             width="300"
+                            alt="Овощи"
+                            title="Овощи"
                         />
                     </section>
 
@@ -48,15 +52,15 @@
                         <h2 class="About__mission-benefits-title">Наши преимущества:</h2>
                         <ul class="About__mission-benefits-list">
                             <li class="About__mission-benefits-list-item">
-                                <NuxtImg src="/images/icons/animated-plant.svg" />
+                                <NuxtImg src="/images/icons/animated-plant.svg" alt="Инновационные и премиальные технологии и материалы." title="Инновационные и премиальные технологии и материалы."/>
                                 Инновационные и премиальные технологии и материалы.
                             </li>
                             <li class="About__mission-benefits-list-item">
-                                <NuxtImg src="/images/icons/animated-bad-weather.svg" />
+                                <NuxtImg src="/images/icons/animated-bad-weather.svg" alt="Устойчивость к неблагоприятным погодным условиям." title="Устойчивость к неблагоприятным погодным условиям."/>
                                 Устойчивость к неблагоприятным погодным условиям.
                             </li>
                             <li class="About__mission-benefits-list-item">
-                                <NuxtImg src="/images/icons/animated-sun.svg" />
+                                <NuxtImg src="/images/icons/animated-sun.svg" alt="Отличные светопропускные свойства." title="Отличные светопропускные свойства." />
                                 Отличные светопропускные свойства.
                             </li>
                         </ul>
@@ -97,6 +101,7 @@
                 <NuxtLink
                     to="/catalog"
                     class="About__button"
+                    title="Каталог"
                 >
                     <OthersPrimaryButton>Продолжить покупки</OthersPrimaryButton>
                 </NuxtLink>
@@ -107,7 +112,65 @@
     </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+
+const { setSeo } = useSitewide();
+
+setSeo({
+  title: 'О компании TeploGarden',
+  description: 'TeploGarden - производитель премиальных теплиц из алюминия со стеклом. Узнайте больше о нашей компании, производстве и гарантиях качества.',
+  type: 'website',
+  keywords: 'о компании teplogarden, производитель теплиц, теплицы производство, премиальные теплицы производитель, алюминиевые теплицы производство, теплицы со стеклом производитель',
+  robots: 'index, follow',
+  author: {
+    '@type': 'Organization',
+    name: 'TeploGarden',
+    url: 'https://teplogarden.ru'
+  }
+});
+
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [
+      {
+        name: 'Главная',
+        item: 'https://teplogarden.ru'
+      },
+      {
+        name: 'О компании',
+        item: 'https://teplogarden.ru/about'
+      }
+    ]
+  }),
+  defineOrganization({
+    name: 'TeploGarden',
+    logo: 'https://teplogarden.ru/images/logo.svg',
+    description: 'Производитель премиальных теплиц из алюминия со стеклом',
+    sameAs: [
+      'https://instagram.com/teplogarden',
+      'https://facebook.com/teplogarden'
+    ],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+79946668833',
+      contactType: 'customer service'
+    }
+  }),
+  defineWebPage({
+    '@type': 'AboutPage',
+    name: 'О компании TeploGarden',
+    description: 'TeploGarden - производитель премиальных теплиц из алюминия со стеклом',
+    publisher: {
+      '@type': 'Organization',
+      name: 'TeploGarden',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://teplogarden.ru/images/logo.svg'
+      }
+    }
+  })
+])
+</script>
 
 <style scoped lang="scss">
     .Header {
@@ -130,6 +193,10 @@
                 object-fit: cover;
                 border-radius: 16px;
                 filter: blur(3px);
+
+                @media screen and (max-width: 767px) {
+                    max-height: 350px;
+                }
             }
 
             &-text {
@@ -148,6 +215,10 @@
                 & span {
                     text-transform: uppercase;
                 }
+
+                @media screen and (max-width: 767px) {
+                    font-size: 32px;
+                }
             }
         }
 
@@ -160,6 +231,10 @@
                 line-height: 140%;
                 color: #141414;
                 text-align: center;
+
+                @media screen and (max-width: 767px) {
+                    font-size: 20px;
+                }
             }
 
             &-ecology {
@@ -175,6 +250,10 @@
                     line-height: 140%;
                     color: #141414;
                     text-align: center;
+
+                    @media screen and (max-width: 767px) {
+                        font-size: 20px;
+                    }
                 }
 
                 &-descr {
@@ -183,12 +262,22 @@
                     color: #666;
                     margin-top: 16px;
                     max-width: 710px;
+
+                    @media screen and (max-width: 767px) {
+                        font-size: 16px;
+                    }
                 }
 
                 &-img {
                     position: absolute;
                     top: 24px;
                     right: 24px;
+
+                    @media screen and (max-width: 1365px) {
+                        width: 250px;
+                        opacity: 0.15;
+                        z-index: 0;
+                    }
                 }
             }
 
@@ -208,6 +297,11 @@
                     display: grid;
                     grid-template-columns: repeat(3, 1fr);
                     gap: 48px;
+
+                    @media screen and (max-width: 767px) {
+                        grid-template-columns: 1fr;
+                    }
+
 
                     &-item {
                         padding: 24px;
@@ -287,6 +381,10 @@
                 margin-top: 24px;
                 font-size: 32px;
                 font-weight: 600;
+
+                @media screen and (max-width: 767px) {
+                    font-size: 24px;
+                }
             }
         }
 

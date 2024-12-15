@@ -48,10 +48,11 @@ const productAdvantages = [
         margin-top: 16px;
         display: flex;
         gap: 24px;
-        overflow-x: scroll;
 
-        &::-webkit-scrollbar {
-            display: none;
+        @media screen and (max-width: 1365px) {
+            gap: 16px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
         }
     }
 }

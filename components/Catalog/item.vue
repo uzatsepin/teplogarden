@@ -2,26 +2,43 @@
     <div class="CatalogItem">
         <div class="CatalogItem__wrapper">
             <NuxtImg
-                src="https://placeholder.co/200x120"
+                :src="genImageUrl(category?.collectionId, category?.id, category.image)"
                 height="150"
+                :alt="category?.name"
+                v-if="!loading"
+                :title="category?.name"
             />
+            <Icon v-else name="svg-spinners:270-ring-with-bg" class="CatalogItem__wrapper-loading" />
         </div>
-        <h2 class="CatalogItem__name"> Teplo S </h2>
-        <p class="CatalogItem__descr"> ширина 2200 </p>
+        <h2 class="CatalogItem__name"> {{ category?.name }} </h2>
+        <p class="CatalogItem__descr"> {{ category?.width }} см </p>
 
         <div class="CatalogItem__sizes">
             <h3 class="CatalogItem__sizes-title">Доступные размеры</h3>
 
             <ul class="CatalogItem__sizes-list">
-                <li class="CatalogItem__sizes-item">2200x3000</li>
-                <li class="CatalogItem__sizes-item">2200x4000</li>
-                <li class="CatalogItem__sizes-item">2200x5000</li>
+                <li class="CatalogItem__sizes-item" v-for="product in category?.expand?.products" :key="product.id">
+                    <NuxtLink :to="`/product/${product.slug}`" class="CatalogItem__sizes-item-link" :title="product?.name">{{ product.name }}</NuxtLink>
+                </li>
             </ul>
         </div>
     </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useCategoriesStore } from '~/store/categoriesStore';
+import type { ICategory } from '~/types/categories.types';
+
+const categoriesStore = useCategoriesStore();
+
+const { loading } = storeToRefs(categoriesStore);
+
+
+const props = defineProps<{
+    category: ICategory
+}>();
+
+</script>
 
 <style scoped lang="scss">
     .CatalogItem {
@@ -40,6 +57,16 @@
                 object-fit: cover;
                 border-radius: 16px;
                 overflow: hidden;
+            }
+
+            &-loading {
+                width: 150px;
+                height: 150px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0 auto;
+                background: $secondaryBeige;
             }
         }
 
@@ -80,6 +107,17 @@
                 background: $lightRed;
                 border-radius: 8px;
                 text-align: center;
+                transition: background 250ms ease-in-out;
+
+                &-link {
+                    display: block;
+                    width: 100%;
+                }
+
+                &:hover {
+                    background: #c2410a;
+                    cursor: pointer;
+                }
             }
         }
     }

@@ -4,27 +4,34 @@
             <div class="ProductCardReviewsItem__top">
                 <div class="ProductCardReviewsItem__top-rating">
                     <div class="ProductCardReviewsItem__top-rating-icon">
-                        <NuxtImg src="/images/star-fill.svg" alt="star" width="16" height="16"/>
-                        <NuxtImg src="/images/star-fill.svg" alt="star" width="16" height="16"/>
-                        <NuxtImg src="/images/star-fill.svg" alt="star" width="16" height="16"/>
-                        <NuxtImg src="/images/star-fill.svg" alt="star" width="16" height="16"/>
-                        <NuxtImg src="/images/star-fill.svg" alt="star" width="16" height="16"/>
+                        <template v-for="index in 5" :key="index">
+                            <NuxtImg 
+                                :src="index <= review?.rating ? '/images/star-fill.svg' : '/images/star-empty.svg'"
+                                alt="star"
+                                width="16"
+                                height="16"
+                            />
+                        </template>
                     </div>
-                    <div class="ProductCardReviewsItem__top-rating-name">Иван Иванов</div>
+                    <div class="ProductCardReviewsItem__top-rating-name">{{review?.reviewer}}</div>
                 </div>
                 <div class="ProductCardReviewsItem__top-date">
-                    14 октября 2024
+                    {{formatDate(review?.created)}}
                 </div>
             </div>
             <div class="ProductCardReviewsItem__comment">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                {{ review?.comment }}
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import type { IReview } from '~/types/review.types';
 
+const props = defineProps<{
+    review: IReview;
+}>();
 </script>
 
 <style scoped lang="scss">
@@ -67,7 +74,7 @@
     &__comment {
         margin-top: 16px;
         line-height: 140%;
-        font-size: 14px;
+        font-size: 16px;
     }
 }
 </style>

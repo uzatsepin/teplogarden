@@ -9,6 +9,8 @@
                 <NuxtImg
                     src="/images/map-teplogarden.jpg"
                     height="600"
+                    alt="Карта проезда к офису Teplogarden"
+                    title="Карта проезда к офису Teplogarden"
                 />
             </div>
             <div class="Contacts__info-contacts">
@@ -25,6 +27,7 @@
                         :to="item?.link"
                         class="Contacts__info-contacts-item-value"
                         v-if="item.link"
+                        :item="item.value"
                         >{{ item.value }}</NuxtLink
                     >
                     <time
@@ -43,6 +46,7 @@
                             v-for="item in messengers"
                             :key="item.name"
                             :to="item.link"
+                            :title="item.name"
                             class="Contacts__info-contacts-messengers-link-item"
                         >
                             <Icon :name="item.icon" />
@@ -55,6 +59,8 @@
 </template>
 
 <script setup lang="ts">
+    const { setSeo } = useSitewide();
+
     const contacts = [
         {
             name: 'Адрес',
@@ -108,6 +114,66 @@
             icon: 'logos:facebook',
         },
     ];
+
+    setSeo({
+        title: 'Контакты TeploGarden - Как связаться с нами',
+        description:
+            'Контактная информация TeploGarden. Адрес офиса и производства, телефоны, email, часы работы. Свяжитесь с нами для консультации по теплицам.',
+        type: 'website',
+        keywords:
+            'контакты teplogarden, адрес теплицы, телефон теплицы, email теплицы, как связаться теплицы, офис теплиц, производство теплиц адрес',
+        robots: 'index, follow',
+    });
+
+    useSchemaOrg([
+        defineBreadcrumb({
+            itemListElement: [
+                {
+                    name: 'Главная',
+                    item: 'https://teplogarden.ru',
+                },
+                {
+                    name: 'Пользователям',
+                    item: 'https://teplogarden.ru/user-center',
+                },
+                {
+                    name: 'Контакты',
+                    item: 'https://teplogarden.ru/user-center/contacts',
+                },
+            ],
+        }),
+        {
+            '@type': 'LocalBusiness',
+            name: 'TeploGarden',
+            image: 'https://teplogarden.ru/images/logo.svg',
+            address: {
+                '@type': 'PostalAddress',
+                streetAddress: 'ул. Тарусская 24Б',
+                addressLocality: 'с. Некрасово',
+                addressRegion: 'Калужская область',
+                postalCode: '249100',
+                addressCountry: 'RU',
+            },
+            geo: {
+                '@type': 'GeoCoordinates',
+                latitude: '54.7166',
+                longitude: '37.1833',
+            },
+            openingHoursSpecification: {
+                '@type': 'OpeningHoursSpecification',
+                dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                opens: '09:00',
+                closes: '18:00',
+            },
+            contactPoint: {
+                '@type': 'ContactPoint',
+                telephone: contacts[0].value,
+                contactType: 'customer service',
+                email: contacts[2]?.value,
+                availableLanguage: 'Russian',
+            },
+        },
+    ]);
 </script>
 
 <style scoped lang="scss">
@@ -132,6 +198,10 @@
             grid-template-columns: 1.2fr 0.8fr;
             gap: 32px;
             align-items: center;
+
+            @media screen and (max-width: 1365px) {
+                grid-template-columns: 1fr;
+            }
 
             &-map {
                 & img {

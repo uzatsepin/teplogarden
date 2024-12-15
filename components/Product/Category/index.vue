@@ -3,26 +3,18 @@
         <h2 class="ProductCategory__title">Другие категории</h2>
 
         <div class="ProductCategory__container">
-            <ProductCategoryItem  v-for="category in categories" :key="category.id" :category="category"/>
+            <ProductCategoryItem  v-for="category in otherCategories" :key="category.id" :category="category"/>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-const categories = [
-    {
-        id: 1,
-        image: 'https://placeholder.co/131x90',
-        name: 'Teplo M',
-        size: 'Ширина 3000'
-    },
-    {
-        id: 2,
-        image: 'https://placeholder.co/131x90',
-        name: 'Teplo L',
-        size: 'Ширина 3500'
-    }
-]
+import type { ICategory } from '~/types/categories.types';
+
+
+const props = defineProps<{
+    otherCategories: ICategory[]
+}>()
 </script>
 
 <style scoped lang="scss">
