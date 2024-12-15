@@ -66,6 +66,28 @@ export const useAdditionalsStore = defineStore('additionals', () => {
         }
     }
 
+    async function createApplication(form: {[key: string]: any}) {
+        const {$pb} = useNuxtApp()
+
+        try {
+            const response = await $pb.collection('application').create(form)
+            
+        } catch (error) {
+            console.error(error)
+        }
+    }
+    
+    async function createOrder(form: {[key: string]: any}) {
+        const {$pb} = useNuxtApp()
+
+        try {
+            const response = await $pb.collection('orders').create(form)
+            
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     return {
         contacts,
         packages,
@@ -74,6 +96,8 @@ export const useAdditionalsStore = defineStore('additionals', () => {
         fetchContacts,
         fetchPackages,
         fetchBanners,
-        fetchShopReviews
+        fetchShopReviews,
+        createApplication,
+        createOrder
     };
 });

@@ -60,7 +60,7 @@
 
         @media screen and (max-width: 767px) {
             width: 100%;
-            height: 100vh;
+            height: calc(100vh - 80px);
             max-height: 100vh;
             border-radius: 0;
             margin: 0;

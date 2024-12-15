@@ -12,7 +12,7 @@
         </div>
         <div class="ProductCardPrice__buy">
             <OthersBuyButton @click="openOrderPopup">Заказать</OthersBuyButton>
-            <OthersCallButton>Остались вопросы?</OthersCallButton>
+            <OthersCallButton @click="openOrderPopup">Остались вопросы?</OthersCallButton>
         </div>
 
         <ProductPricePopup
@@ -20,44 +20,73 @@
             :isOpen="isOrderPopupOpen"
             @close="closeOrderPopup"
         >
-            <form
-                @submit.prevent="handleSubmit"
-                class="PopupBuy__form"
-            >
-                <div class="PopupBuy__form-group">
-                    <input
-                        type="text"
-                        v-model="form.name"
-                        placeholder="Ваше имя"
-                        required
+            <template v-if="isLoading">
+                <div class="PopupBuy__form-loading">
+                    <Icon name="svg-spinners:180-ring-with-bg" />
+                </div>
+            </template>
+
+            <template v-if="isSuccess">
+                <div class="PopupBuy__form-success">
+                    <Icon
+                        name="mdi:check-circle"
+                        class="PopupBuy__form-success-icon"
                     />
+                    <p class="PopupBuy__form-success-text">
+                        Заявка успешно отправлена. Наш менеджер свяжется с вами в ближайшее время
+                    </p>
                 </div>
-                <div class="PopupBuy__form-group">
-                    <input
-                        type="tel"
-                        v-model="form.phone"
-                        placeholder="Ваш телефон"
-                        required
-                    />
-                </div>
-                <div class="PopupBuy__form-group">
-                    <textarea
-                        v-model="form.comment"
-                        placeholder="Комментарий"
-                        rows="4"
-                    ></textarea>
-                </div>
-                <OthersSecondaryButton
-                    type="submit"
-                    class="PopupBuy__form-btn"
-                    >Оформить заказ</OthersSecondaryButton
+            </template>
+
+            <template v-if="!isSuccess && !isLoading">
+                <form
+                    @submit.prevent="handleSubmit"
+                    class="PopupBuy__form"
                 >
-            </form>
+                    <div class="PopupBuy__form-group">
+                        <input
+                            type="text"
+                            v-model="form.name"
+                            placeholder="Ваше имя"
+                            required
+                        />
+                    </div>
+                    <div class="PopupBuy__form-group">
+                        <input
+                            type="tel"
+                            v-model="form.phone"
+                            placeholder="+7 (___) ___-__-__"
+                            required
+                        />
+                    </div>
+                    <div class="PopupBuy__form-group">
+                        <textarea
+                            v-model="form.comment"
+                            placeholder="Хочу узнать больше о товаре и заказать его"
+                            rows="4"
+                        ></textarea>
+                    </div>
+                    <OthersSecondaryButton
+                        type="submit"
+                        class="PopupBuy__form-btn"
+                        >Оформить заказ</OthersSecondaryButton
+                    >
+                </form>
+            </template>
         </ProductPricePopup>
     </div>
 </template>
 
 <script setup lang="ts">
+    import { useAdditionalsStore } from '~/store/additionalsStore';
+    import { useProductStore } from '~/store/productStore';
+
+    const addionalsStore = useAdditionalsStore();
+    const productStore = useProductStore();
+
+    const isLoading = ref(false);
+    const isSuccess = ref(false);
+
     const props = defineProps<{
         priceNew: string;
         priceOld: string;
@@ -88,8 +117,27 @@
         useScrollLock().unlockScroll();
     };
 
-    const handleSubmit = () => {
-        console.log(form);
+    const handleSubmit = async () => {
+        try {
+            isLoading.value = true;
+            await addionalsStore.createOrder({
+                name: form.name,
+                phone: form.phone,
+                comment: form.comment,
+                productName: productStore.product?.name,
+                status: 'new',
+            });
+
+            isSuccess.value = true;
+
+            form.name = '';
+            form.phone = '';
+            form.comment = '';
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        } finally {
+            isLoading.value = false;
+        }
     };
 </script>
 
@@ -153,6 +201,41 @@
         display: flex;
         flex-direction: column;
         gap: 16px;
+        min-height: 331px;
+
+        &-loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 331px;
+
+            & span {
+                font-size: 96px;
+                color: $red;
+            }
+        }
+
+        &-success {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 16px;
+                text-align: center;
+                height: 300px;
+
+                &-icon {
+                    color: $red;
+                    font-size: 64px;
+                }
+
+                &-text {
+                    font-size: 24px;
+                    font-weight: 600;
+                    color: #141414;
+                    line-height: 140%;
+                }
+            }
 
         &-group {
             width: 100%;

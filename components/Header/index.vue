@@ -131,6 +131,8 @@
                                             :src="item.image"
                                             :alt="item.title"
                                             :title="item.title"
+                                            loading="lazy"
+                                            provider="pocketbase"
                                         />
                                         <div class="Header__catalog-popup-content-menu-link-text">
                                             <p>{{ item.title }}</p>
@@ -146,6 +148,9 @@
                                         <NuxtImg
                                             :src="item.image"
                                             :alt="item.title"
+                                            loading="lazy"
+                                            provider="pocketbase"
+                                            :title="item.title"
                                         />
                                         <div class="Header__catalog-popup-content-menu-link-text">
                                             <p>{{ item.title }}</p>
@@ -254,12 +259,12 @@
             id: category.id,
             title: category.name,
             description: category.shortDescription,
-            image: `/${genImageUrl(category.collectionId, category.id, category.image)}`,
+            image: `${genImageUrl(category.collectionId, category.id, category.image)}`,
             children: category.expand.products.map((product: any) => ({
                 id: product.id,
                 title: product.name,
                 description: product.shortDescription,
-                image: `/${genImageUrl(product.collectionId, product.id, product.image)}`,
+                image: `${genImageUrl(product.collectionId, product.id, product.image)}`,
                 link: `/product/${product.slug}`,
             })),
         }));

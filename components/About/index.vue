@@ -18,18 +18,24 @@
                                         >Телефон</p
                                     >
                                     <a
-                                        :href="`tel:${addionalsStore.contacts[0]?.phone || '+79946668833'}`"
+                                        :href="`tel:${
+                                            addionalsStore.contacts[0]?.phone || '+79946668833'
+                                        }`"
                                         class="About__info-inner-contacts-block-item-value"
-                                        >{{ addionalsStore.contacts[0]?.phone || '+79946668833' }}</a
+                                        >{{
+                                            addionalsStore.contacts[0]?.phone || '+79946668833'
+                                        }}</a
                                     >
                                 </div>
                                 <div class="About__info-inner-contacts-block-item">
                                     <p class="About__info-inner-contacts-block-item-text">Email</p>
                                     <a
-                                        :href="`mailto:${addionalsStore?.contacts[0]?.email}`
-"
+                                        :href="`mailto:${addionalsStore?.contacts[0]?.email}`"
                                         class="About__info-inner-contacts-block-item-value"
-                                        >{{ addionalsStore?.contacts[0]?.email || 'teplogarden.ru@gmail.com'}}
+                                        >{{
+                                            addionalsStore?.contacts[0]?.email ||
+                                            'teplogarden.ru@gmail.com'
+                                        }}
                                     </a>
                                 </div>
                                 <div class="About__info-inner-contacts-block-item">
@@ -47,32 +53,49 @@
                 </div>
                 <div class="About__form">
                     <h2 class="About__form-title">Оставьте заявку</h2>
-                    <form
-                        action=""
-                        class="About__form-item"
-                    >
-                        <input
-                            type="text"
-                            class="About__form-item-input"
-                            placeholder="Размеры"
-                        />
-                        <input
-                            type="text"
-                            class="About__form-item-input"
-                            placeholder="Культуры"
-                        />
-                        <input
-                            type="text"
-                            class="About__form-item-input"
-                            placeholder="Регион"
-                        />
-                        <input
-                            type="text"
-                            class="About__form-item-input"
-                            placeholder="+7-(900)-000-00-00"
-                        />
-                        <OthersSecondaryButton>Заказать звонок</OthersSecondaryButton>
-                    </form>
+                    <template v-if="!isSuccess">
+                        <form
+                            class="About__form-item"
+                            @submit.prevent="handleSubmit"
+                        >
+                            <input
+                                type="text"
+                                class="About__form-item-input"
+                                placeholder="Размеры"
+                                v-model="form.size"
+                            />
+                            <input
+                                type="text"
+                                class="About__form-item-input"
+                                placeholder="Культуры"
+                                v-model="form.cultures"
+                            />
+                            <input
+                                type="text"
+                                class="About__form-item-input"
+                                placeholder="Регион"
+                                v-model="form.region"
+                            />
+                            <input
+                                type="text"
+                                class="About__form-item-input"
+                                placeholder="+7-(900)-000-00-00"
+                                v-model="form.phone"
+                            />
+                            <OthersSecondaryButton type="submit"
+                                >Заказать звонок</OthersSecondaryButton
+                            >
+                        </form>
+                    </template>
+                    <template v-else>
+                        <div class="About__form-success">
+                            <Icon
+                                name="mdi:check-circle"
+                                class="About__form-success-icon"
+                            />
+                            <p class="About__form-success-text"> Заявка успешно отправлена. Наш менеджер свяжется с вами в ближайшее время </p>
+                        </div>
+                    </template>
                 </div>
 
                 <div class="About__vegetables">
@@ -80,6 +103,7 @@
                         src="/images/vegetables.png"
                         alt="Овощи Teplogarden"
                         width="490"
+                        title="Овощи Teplogarden"
                     />
                 </div>
             </div>
@@ -88,10 +112,42 @@
 </template>
 
 <script setup lang="ts">
-import { useAdditionalsStore } from '~/store/additionalsStore';
+    import { useAdditionalsStore } from '~/store/additionalsStore';
 
-const addionalsStore = useAdditionalsStore();
+    const addionalsStore = useAdditionalsStore();
+    const isLoading = ref(false);
+    const isSuccess = ref(false);
 
+    const form = reactive({
+        size: '',
+        cultures: '',
+        region: '',
+        phone: '',
+    });
+
+    const handleSubmit = async () => {
+        try {
+            isLoading.value = true;
+            await addionalsStore.createApplication({
+                size: form.size,
+                cultures: form.cultures,
+                region: form.region,
+                phone: form.phone,
+                status: 'new',
+            });
+
+            isSuccess.value = true;
+
+            form.size = '';
+            form.phone = '';
+            form.region = '';
+            form.cultures = '';
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        } finally {
+            isLoading.value = false;
+        }
+    };
 </script>
 
 <style scoped lang="scss">
@@ -242,6 +298,7 @@ const addionalsStore = useAdditionalsStore();
             transform: translateZ(0);
             position: relative;
             z-index: 1;
+            min-height: 424px;
 
             @supports not (backdrop-filter: blur(5px)) {
                 background: rgba(208, 195, 174, 0.8);
@@ -295,6 +352,28 @@ const addionalsStore = useAdditionalsStore();
 
                 .SecondaryButton {
                     font-size: 16px;
+                }
+            }
+
+            &-success {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 16px;
+                text-align: center;
+                height: 300px;
+
+                &-icon {
+                    color: $red;
+                    font-size: 64px;
+                }
+
+                &-text {
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: #141414;
+                    line-height: 140%;
                 }
             }
         }

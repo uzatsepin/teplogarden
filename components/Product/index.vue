@@ -10,9 +10,10 @@
                         activeImage ||
                         genImageUrl(product?.collectionId, product?.id, product?.image)
                     "
-                    alt="ProductImage"
+                    :alt="product.name"
                     class="Product__wrapper-img"
                     height="265"
+                    :title="product.name"
                 />
             </div>
             <div class="Product__badges">
@@ -31,7 +32,8 @@
                 :class="{
                     active: activeImage === genImageUrl(product?.collectionId, product?.id, image),
                 }"
-                alt="ProductImage"
+                :alt="product.name"
+                :title="product.name"
                 @click="setActiveImage(genImageUrl(product?.collectionId, product?.id, image))"
                 class="Product__gallery-img"
             />
@@ -62,6 +64,7 @@
                             alt="star"
                             width="16"
                             height="16"
+                            title="Звезда рейтинга"
                         />
                     </template>
                 </div>
