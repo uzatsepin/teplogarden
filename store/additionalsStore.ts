@@ -7,6 +7,18 @@ export const useAdditionalsStore = defineStore('additionals', () => {
     const banners = ref<IBanner[]>([]);
     const loading = ref(false);
 
+    const isInitialized = ref(false);
+
+    async function initialize() {
+        if (isInitialized.value) return;
+        await Promise.all([
+            fetchContacts(),
+            fetchPackages(),
+            fetchBanners()
+        ]);
+        isInitialized.value = true;
+    }
+
     async function fetchContacts() {
         const { $pb } = useNuxtApp();
         loading.value = true;
@@ -98,6 +110,7 @@ export const useAdditionalsStore = defineStore('additionals', () => {
         fetchBanners,
         fetchShopReviews,
         createApplication,
-        createOrder
+        createOrder,
+        initialize
     };
 });

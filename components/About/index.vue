@@ -8,48 +8,54 @@
                         Производство и реализация инновационных теплиц из поликарбоната с услугой
                         доставки
                     </p>
-                    <div class="About__info-inner">
-                        <h2 class="About__info-inner-text">ЭТО СВЕЖИЙ УРОЖАЙ</h2>
-                        <div class="About__info-inner-contacts">
-                            <h3 class="About__info-inner-contacts-text">Связаться с нами:</h3>
-                            <div class="About__info-inner-contacts-block">
-                                <div class="About__info-inner-contacts-block-item">
-                                    <p class="About__info-inner-contacts-block-item-text"
-                                        >Телефон</p
-                                    >
-                                    <a
-                                        :href="`tel:${
-                                            addionalsStore.contacts[0]?.phone || '+79946668833'
-                                        }`"
-                                        class="About__info-inner-contacts-block-item-value"
-                                        >{{
-                                            addionalsStore.contacts[0]?.phone || '+79946668833'
-                                        }}</a
-                                    >
-                                </div>
-                                <div class="About__info-inner-contacts-block-item">
-                                    <p class="About__info-inner-contacts-block-item-text">Email</p>
-                                    <a
-                                        :href="`mailto:${addionalsStore?.contacts[0]?.email}`"
-                                        class="About__info-inner-contacts-block-item-value"
-                                        >{{
-                                            addionalsStore?.contacts[0]?.email ||
-                                            'teplogarden.ru@gmail.com'
-                                        }}
-                                    </a>
-                                </div>
-                                <div class="About__info-inner-contacts-block-item">
-                                    <p class="About__info-inner-contacts-block-item-text">Адрес</p>
-                                    <a
-                                        href="mailto:teplogarden.ru@gmail.com
+                    <Suspense>
+                        <div class="About__info-inner">
+                            <h2 class="About__info-inner-text">ЭТО СВЕЖИЙ УРОЖАЙ</h2>
+                            <div class="About__info-inner-contacts">
+                                <h3 class="About__info-inner-contacts-text">Связаться с нами:</h3>
+                                <div class="About__info-inner-contacts-block">
+                                    <div class="About__info-inner-contacts-block-item">
+                                        <p class="About__info-inner-contacts-block-item-text"
+                                            >Телефон</p
+                                        >
+                                        <a
+                                            :href="`tel:${
+                                                addionalsStore.contacts[0]?.phone || '+79946668833'
+                                            }`"
+                                            class="About__info-inner-contacts-block-item-value"
+                                            >{{
+                                                addionalsStore.contacts[0]?.phone || '+79946668833'
+                                            }}</a
+                                        >
+                                    </div>
+                                    <div class="About__info-inner-contacts-block-item">
+                                        <p class="About__info-inner-contacts-block-item-text"
+                                            >Email</p
+                                        >
+                                        <a
+                                            :href="`mailto:${addionalsStore?.contacts[0]?.email}`"
+                                            class="About__info-inner-contacts-block-item-value"
+                                            >{{
+                                                addionalsStore?.contacts[0]?.email ||
+                                                'teplogarden.ru@gmail.com'
+                                            }}
+                                        </a>
+                                    </div>
+                                    <div class="About__info-inner-contacts-block-item">
+                                        <p class="About__info-inner-contacts-block-item-text"
+                                            >Адрес</p
+                                        >
+                                        <a
+                                            href="mailto:teplogarden.ru@gmail.com
 "
-                                        class="About__info-inner-contacts-block-item-value"
-                                        >с. Некрасово, ул. Тарусская 24Б
-                                    </a>
+                                            class="About__info-inner-contacts-block-item-value"
+                                            >с. Некрасово, ул. Тарусская 24Б
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </Suspense>
                 </div>
                 <div class="About__form">
                     <h2 class="About__form-title">Оставьте заявку</h2>
@@ -77,12 +83,21 @@
                                 v-model="form.region"
                             />
                             <input
-                                type="text"
+                                type="tel"
+                                required
+                                placeholder="+7 (___) ___-__-__"
+                                pattern="[+]7[\(]\d{3}[\)]\d{3}[-]\d{2}[-]\d{2}"
                                 class="About__form-item-input"
-                                placeholder="+7-(900)-000-00-00"
                                 v-model="form.phone"
+                                v-maska
+                                data-maska="+7 (###) ###-##-##"
+                                aria-label="Phone number"
                             />
-                            <OthersSecondaryButton type="submit"
+                            <OthersSecondaryButton
+                                type="submit"
+                                :disabled="
+                                    !form.phone || !form.size || !form.cultures || !form.region
+                                "
                                 >Заказать звонок</OthersSecondaryButton
                             >
                         </form>
@@ -93,7 +108,10 @@
                                 name="mdi:check-circle"
                                 class="About__form-success-icon"
                             />
-                            <p class="About__form-success-text"> Заявка успешно отправлена. Наш менеджер свяжется с вами в ближайшее время </p>
+                            <p class="About__form-success-text">
+                                Заявка успешно отправлена. Наш менеджер свяжется с вами в ближайшее
+                                время
+                            </p>
                         </div>
                     </template>
                 </div>
@@ -113,6 +131,7 @@
 
 <script setup lang="ts">
     import { useAdditionalsStore } from '~/store/additionalsStore';
+    import { vMaska } from 'maska/vue';
 
     const addionalsStore = useAdditionalsStore();
     const isLoading = ref(false);

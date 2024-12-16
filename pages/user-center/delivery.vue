@@ -18,7 +18,7 @@
                 </div>
                 <div class="Delivery__methods">
                     <NuxtImg
-                        src="/images/delivery.jpg"
+                        src="/images/delivery.webp"
                         alt="TeploGarden доставка по всей территории России"
                         height="350"
                         class="Delivery__methods-image"

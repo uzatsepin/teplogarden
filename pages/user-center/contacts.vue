@@ -7,7 +7,7 @@
         <div class="Contacts__info">
             <div class="Contacts__info-map">
                 <NuxtImg
-                    src="/images/map-teplogarden.jpg"
+                    src="/images/map-teplogarden.webp"
                     height="600"
                     alt="Карта проезда к офису Teplogarden"
                     title="Карта проезда к офису Teplogarden"

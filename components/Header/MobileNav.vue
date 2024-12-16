@@ -8,7 +8,10 @@
                 class="Header__mobile-overlay"
                 @click="$emit('close')"
             ></div>
-            <div class="Header__mobile-cross" @click="$emit('close')">
+            <div
+                class="Header__mobile-cross"
+                @click="$emit('close')"
+            >
                 <Icon name="charm:cross" />
             </div>
             <div class="Header__mobile">
@@ -57,25 +60,40 @@
 
                 <ul class="Header__mobile-links">
                     <li class="Header__mobile-links-list">
-                        <NuxtLink to="/user-center/delivery" class="Header__mobile-links-link" title="Доставка">
+                        <NuxtLink
+                            to="/user-center/delivery"
+                            class="Header__mobile-links-link"
+                            title="Доставка"
+                        >
                             Доставка
                         </NuxtLink>
                     </li>
 
                     <li class="Header__mobile-links-list">
-                        <NuxtLink to="/about" class="Header__mobile-links-link" title="О нас">
+                        <NuxtLink
+                            to="/about"
+                            class="Header__mobile-links-link"
+                            title="О нас"
+                        >
                             О нас
                         </NuxtLink>
                     </li>
 
                     <li class="Header__mobile-links-list">
-                        <NuxtLink to="/user-center/contacts" class="Header__mobile-links-link" title="Полезные ссылки">
+                        <NuxtLink
+                            to="/user-center/contacts"
+                            class="Header__mobile-links-link"
+                            title="Полезные ссылки"
+                        >
                             Контакты
                         </NuxtLink>
                     </li>
 
                     <li class="Header__mobile-links-list">
-                        <NuxtLink to="/reviews" class="Header__mobile-links-link">
+                        <NuxtLink
+                            to="/reviews"
+                            class="Header__mobile-links-link"
+                        >
                             Отзывы
                         </NuxtLink>
                     </li>
@@ -87,7 +105,8 @@
                     <li class="Header__mobile-contacts-list">
                         <Icon name="line-md:phone" />
                         <NuxtLink
-                            :to="`tel:${contacts?.phone || '+79946668833'}`" title="Позвонить"
+                            :to="`tel:${contacts?.phone || '+79946668833'}`"
+                            title="Позвонить"
                             >{{ contacts?.phone || '+79946668833' }}
                         </NuxtLink>
                     </li>
@@ -105,19 +124,19 @@
                     <li class="Header__mobile-contacts-list">
                         <Icon name="tabler:mail" />
                         <NuxtLink
-                            :to="`mailto:${contacts?.email}`" title="Написать"
+                            :to="`mailto:${contacts?.email}`"
+                            title="Написать"
                             >{{ contacts?.email }}
                         </NuxtLink>
                     </li>
                 </ul>
-                
             </div>
         </div>
     </Transition>
 </template>
 
 <script setup lang="ts">
-import { useAdditionalsStore } from '~/store/additionalsStore';
+    import { useAdditionalsStore } from '~/store/additionalsStore';
 
     const props = defineProps<{
         isMobileMenuActive: boolean;
@@ -130,6 +149,18 @@ import { useAdditionalsStore } from '~/store/additionalsStore';
 
     const contacts = additionalsStore.contacts[0];
 
+    const { lockScroll, unlockScroll } = useScrollLock();
+
+    watch(
+        () => props.isMobileMenuActive,
+        (newValue) => {
+            if (newValue) {
+                lockScroll();
+            } else {
+                unlockScroll();
+            }
+        },
+    );
 </script>
 
 <style scoped lang="scss">
@@ -217,7 +248,7 @@ import { useAdditionalsStore } from '~/store/additionalsStore';
                 gap: 8px;
                 border-bottom: 1px solid $secondaryBeige;
                 padding-bottom: 8px;
-                
+
                 &:last-child {
                     border-bottom: none;
                     padding-bottom: 0;
@@ -245,7 +276,8 @@ import { useAdditionalsStore } from '~/store/additionalsStore';
                     display: block;
                     width: 24px;
                     height: 24px;
-                    background: url('../../assets/images/icons/arrow-right-black.svg') no-repeat center;
+                    background: url('../../assets/images/icons/arrow-right-black.svg') no-repeat
+                        center;
                     background-size: contain;
                 }
             }
@@ -268,7 +300,8 @@ import { useAdditionalsStore } from '~/store/additionalsStore';
                     display: block;
                     width: 24px;
                     height: 24px;
-                    background: url('../../assets/images/icons/arrow-right-up-broken.svg') no-repeat center;
+                    background: url('../../assets/images/icons/arrow-right-up-broken.svg') no-repeat
+                        center;
                     background-size: contain;
                     margin-right: 8px;
                 }

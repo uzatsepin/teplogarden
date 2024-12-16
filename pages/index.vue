@@ -7,7 +7,7 @@
       <Categories v-for="category in categoriesStore.categories" :category="category"/>
       <Benefits />
       <Packages /> 
-      <!-- <Individual /> -->
+      <Individual />
       <Contact />
       <Footer />
   </div>

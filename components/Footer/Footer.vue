@@ -7,7 +7,7 @@
                     <ClientOnly>
                         <template v-if="contacts?.length">
                             <p class="footer__contacts-address">
-                                {{ contacts[0]?.address }}
+                                {{ contacts[0]?.fullAddress }}
                             </p>
                             <NuxtLink
                                 to="#"
@@ -125,7 +125,7 @@
             </div>
         </div>
         <div class="footer__copyright">
-            <div class="footer__copyright-text"> © 2024 Все права защищены </div>
+            <div class="footer__copyright-text"> © {{ new Date().getFullYear() }} Все права защищены </div>
             <div class="footer__copyright-link">teplogarden.ru</div>
         </div>
     </section>

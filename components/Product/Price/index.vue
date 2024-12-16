@@ -54,9 +54,13 @@
                     <div class="PopupBuy__form-group">
                         <input
                             type="tel"
-                            v-model="form.phone"
-                            placeholder="+7 (___) ___-__-__"
                             required
+                            placeholder="+7 (___) ___-__-__"
+                            pattern="[+]7[\(]\d{3}[\)]\d{3}[-]\d{2}[-]\d{2}"
+                            v-model="form.phone"
+                            v-maska
+                            data-maska="+7 (###) ###-##-##"
+                            aria-label="Phone number"
                         />
                     </div>
                     <div class="PopupBuy__form-group">
@@ -80,6 +84,7 @@
 <script setup lang="ts">
     import { useAdditionalsStore } from '~/store/additionalsStore';
     import { useProductStore } from '~/store/productStore';
+    import { vMaska } from 'maska/vue';
 
     const addionalsStore = useAdditionalsStore();
     const productStore = useProductStore();
@@ -216,26 +221,26 @@
         }
 
         &-success {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 16px;
-                text-align: center;
-                height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            text-align: center;
+            height: 300px;
 
-                &-icon {
-                    color: $red;
-                    font-size: 64px;
-                }
-
-                &-text {
-                    font-size: 24px;
-                    font-weight: 600;
-                    color: #141414;
-                    line-height: 140%;
-                }
+            &-icon {
+                color: $red;
+                font-size: 64px;
             }
+
+            &-text {
+                font-size: 24px;
+                font-weight: 600;
+                color: #141414;
+                line-height: 140%;
+            }
+        }
 
         &-group {
             width: 100%;

@@ -7,7 +7,7 @@
         >
         <div class="Warranty__term">
             <NuxtImg
-                src="/images/warranty.jpg"
+                src="/images/warranty.webp"
                 height="350"
                 alt="Гарантия на теплицы"
                 title="Гарантия на теплицы"

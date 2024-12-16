@@ -1,7 +1,9 @@
-export const useScrollLock = () => {
-  const lockScroll = () => {
-    if (!import.meta.client) return
+import { onBeforeUnmount } from 'vue'
 
+export const useScrollLock = () => {
+  if (!import.meta.client) return { lockScroll: () => {}, unlockScroll: () => {} }
+
+  const lockScroll = () => {
     const scrollY = window.scrollY
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
     
@@ -19,18 +21,18 @@ export const useScrollLock = () => {
   }
 
   const unlockScroll = () => {
-    if (!import.meta.client) return
-    
     const scrollY = parseInt(document.body.dataset.scrollY || '0')
     document.body.style.cssText = ''
     
     window.scrollTo(0, scrollY)
   }
 
-  onBeforeUnmount(() => {
-    unlockScroll()
-  })
-
+  // Move inside composable function
+  if (import.meta.client) {
+    onBeforeUnmount(() => {
+      unlockScroll()
+    })
+  }
 
   return { lockScroll, unlockScroll }
 }

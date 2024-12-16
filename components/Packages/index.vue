@@ -32,13 +32,13 @@ const { data: packages } = await useAsyncData('product-packages', () => {
         :deep(.ProductPackagesItem) {
             flex-direction: column;
             padding: 24px;
+            border: 1px solid $secondaryBeige;
 
             @media screen and (max-width: 767px) {
                 padding: 24px 0;
             }
 
             &:hover {
-                border-color: transparent;
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             }
         }

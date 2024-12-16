@@ -42,6 +42,6 @@ export const useCategoriesStore = defineStore('categories', () => {
       categories,
       loading,
       fetchCategories,
-      fetchCategoryBySlug
+      fetchCategoryBySlug,
     }
 })

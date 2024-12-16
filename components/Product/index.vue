@@ -371,6 +371,8 @@
                 text-align: center;
                 margin-top: 8px;
                 font-size: 16px;
+                display: block;
+                width: -webkit-fill-available;
             }
         }
     }

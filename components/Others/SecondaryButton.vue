@@ -28,5 +28,11 @@
         &:active {
             background: #b53905;
         }
+
+        &:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
     }
 </style>

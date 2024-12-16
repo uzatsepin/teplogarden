@@ -1,7 +1,7 @@
 <template>
-  <div class="PrimaryButton">
+  <button class="PrimaryButton">
     <slot />
-  </div>
+  </button>
 </template>
 
 <script setup lang="ts"></script>
@@ -30,6 +30,12 @@
 
   &:active {
     background: #fbe3bd;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
   }
 }
 </style>

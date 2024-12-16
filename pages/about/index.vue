@@ -5,7 +5,7 @@
             <div class="About__container">
                 <div class="About__image">
                     <NuxtImg
-                        src="/images/contacts.jpg"
+                        src="/images/contacts.webp"
                         height="450px"
                         alt="Контакты"
                         title="Контакты"
@@ -22,29 +22,26 @@
 
                     <section class="About__mission-ecology">
                         <h2 class="About__mission-ecology-title"
-                            >Наши теплицы — это ваши натуральные и безопасные продукты</h2
+                            >ТЕПЛОГАРДЕН - новый стандарт теплиц!</h2
                         >
                         <p class="About__mission-ecology-descr"
-                            >Teplogarden стремится сделать натуральные продукты доступными каждому.
-                            Мы создаём инновационные теплицы, которые обеспечивают вашим растениям
-                            оптимальные условия для роста и плодоношения.</p
+                            >TEPLOGARDEN объединяет природу и современный дизайн, создавая теплицы
+                            нового поколения. ..</p
                         >
                         <p class="About__mission-ecology-descr"
-                            >Благодаря использованию современных технологий и материалов, наши
-                            теплицы обеспечивают стабильный урожай в любое время года. Мы понимаем,
-                            насколько важно поддерживать здоровье ваших растений, поэтому уделяем
-                            особое внимание качеству конструкции и ее функциональности.</p
+                            >Мы превращаем ваш сад в стильную и функциональную оранжерею, где
+                            выращивание растений становится комфортным и эстетичным.</p
                         >
                         <p class="About__mission-ecology-descr"
-                            >С нашими теплицами вы получите не только долговечность и надежность, но
-                            и удовольствие от процесса выращивания. Ваша уверенность в натуральности
-                            и безопасности продуктов начинается с Teplogarden!</p
+                            >Используя многолетний опыт, экологичные материалы и современные
+                            технологии, мы предлагаем теплицы, которые меняют представление о
+                            садоводстве и создают пространство для творчества</p
                         >
 
                         <NuxtImg
                             src="/images/vegetables.png"
                             class="About__mission-ecology-img"
-                            width="300"
+                            width="200"
                             alt="Овощи"
                             title="Овощи"
                         />
@@ -54,15 +51,27 @@
                         <h2 class="About__mission-benefits-title">Наши преимущества:</h2>
                         <ul class="About__mission-benefits-list">
                             <li class="About__mission-benefits-list-item">
-                                <NuxtImg src="/images/icons/animated-plant.svg" alt="Инновационные и премиальные технологии и материалы." title="Инновационные и премиальные технологии и материалы."/>
+                                <NuxtImg
+                                    src="/images/icons/animated-plant.svg"
+                                    alt="Инновационные и премиальные технологии и материалы."
+                                    title="Инновационные и премиальные технологии и материалы."
+                                />
                                 Инновационные и премиальные технологии и материалы.
                             </li>
                             <li class="About__mission-benefits-list-item">
-                                <NuxtImg src="/images/icons/animated-bad-weather.svg" alt="Устойчивость к неблагоприятным погодным условиям." title="Устойчивость к неблагоприятным погодным условиям."/>
+                                <NuxtImg
+                                    src="/images/icons/animated-bad-weather.svg"
+                                    alt="Устойчивость к неблагоприятным погодным условиям."
+                                    title="Устойчивость к неблагоприятным погодным условиям."
+                                />
                                 Устойчивость к неблагоприятным погодным условиям.
                             </li>
                             <li class="About__mission-benefits-list-item">
-                                <NuxtImg src="/images/icons/animated-sun.svg" alt="Отличные светопропускные свойства." title="Отличные светопропускные свойства." />
+                                <NuxtImg
+                                    src="/images/icons/animated-sun.svg"
+                                    alt="Отличные светопропускные свойства."
+                                    title="Отличные светопропускные свойства."
+                                />
                                 Отличные светопропускные свойства.
                             </li>
                         </ul>
@@ -71,11 +80,56 @@
                     <section class="About__mission-why">
                         <h2 class="About__mission-why-title">Почему выбирают Teplogarden?</h2>
                         <p class="About__mission-why-descr"
-                            ><strong>Teplogarden</strong> — это компания по производству качественных премиальных
-                            теплиц из алюминия с полимерной покраской. Мы предлагаем широкий выбор
-                            дополнительных опций, которые помогут вам создать идеальные условия для
-                            вашего урожая.</p
+                            ><strong>Teplogarden</strong> — это компания по производству
+                            качественных премиальных теплиц из алюминия с полимерной покраской. Мы
+                            предлагаем широкий выбор дополнительных опций, которые помогут вам
+                            создать идеальные условия для вашего урожая.</p
                         >
+                        <p class="About__mission-why-descr">
+                            Мы понимаем своих клиентов, потому что годами общались с ними и
+                            создавали решения, отвечающие их потребностям. Сотни успешных проектов,
+                            учет климатических особенностей разных регионов и постоянное
+                            совершенствование конструкций — все это легло в основу нашего нового
+                            подхода.
+                        </p>
+
+                        <p class="About__mission-why-descr">
+                            Наша цель — не просто соответствовать современным ожиданиям, но и
+                            задавать новые стандарты. Теплицы TEPLOGARDEN объединяют инновации,
+                            эстетику и заботу о природе. Это не просто садовый объект, а умное
+                            решение для тех, кто ценит стиль, экологию и радость от собственного
+                            урожая. Мы стремимся вдохновлять владельцев наших теплиц на новые
+                            достижения и эксперименты, создавая пространство для здоровья, красоты и
+                            удовольствия.
+                        </p>
+                    </section>
+
+                    <section class="About__mission-history">
+                        <h2 class="About__mission-history-title">История бренда TeploGarden</h2>
+
+                        <div class="About__mission-history-container">
+                            <div class="About__mission-history-container-block">
+                                <p class="About__mission-history-container-block-text">
+                                    Наша история началась более 20 лет назад с поставки
+                                    высококачественных алюминиевых конструкций.
+                                    <br />
+                                    <br />
+                                    Мы внимательно изучали запросы клиентов, следили за
+                                    технологическими трендами и со временем перешли от роли дилера к
+                                    созданию собственных теплиц из оцинкованного металла и
+                                    поликарбоната. За эти годы мы приобрели ценный опыт: тестировали
+                                    материалы, улучшали конструкции, оттачивали логистику и сервис.
+                                    Все это позволило нам добиться высокого уровня качества и
+                                    надежности.
+                                    <br />
+                                    <br />
+                                    Сегодня мы понимаем, что современные покупатели ищут больше, чем
+                                    просто функциональность. Они ценят стиль, экологичность и
+                                    индивидуальность. Именно поэтому наши теплицы – это сочетание
+                                    передовых технологий, эстетики и заботы о природе.
+                                </p>
+                            </div>
+                        </div>
                     </section>
                     <section class="About__mission-options">
                         <h2 class="About__mission-options-title">Дополнительные опции:</h2>
@@ -101,7 +155,7 @@
                 </div>
 
                 <NuxtLink
-                    to="/catalog"
+                    to="/category"
                     class="About__button"
                     title="Каталог"
                 >
@@ -115,63 +169,61 @@
 </template>
 
 <script setup lang="ts">
+    const { setSeo } = useSitewide();
 
-const { setSeo } = useSitewide();
+    setSeo({
+        title: 'О компании TeploGarden',
+        description:
+            'TeploGarden - производитель премиальных теплиц из алюминия со стеклом. Узнайте больше о нашей компании, производстве и гарантиях качества.',
+        type: 'website',
+        keywords:
+            'о компании teplogarden, производитель теплиц, теплицы производство, премиальные теплицы производитель, алюминиевые теплицы производство, теплицы со стеклом производитель',
+        robots: 'index, follow',
+        author: {
+            '@type': 'Organization',
+            name: 'TeploGarden',
+            url: 'https://teplogarden.ru',
+        },
+    });
 
-setSeo({
-  title: 'О компании TeploGarden',
-  description: 'TeploGarden - производитель премиальных теплиц из алюминия со стеклом. Узнайте больше о нашей компании, производстве и гарантиях качества.',
-  type: 'website',
-  keywords: 'о компании teplogarden, производитель теплиц, теплицы производство, премиальные теплицы производитель, алюминиевые теплицы производство, теплицы со стеклом производитель',
-  robots: 'index, follow',
-  author: {
-    '@type': 'Organization',
-    name: 'TeploGarden',
-    url: 'https://teplogarden.ru'
-  }
-});
-
-useSchemaOrg([
-  defineBreadcrumb({
-    itemListElement: [
-      {
-        name: 'Главная',
-        item: 'https://teplogarden.ru'
-      },
-      {
-        name: 'О компании',
-        item: 'https://teplogarden.ru/about'
-      }
-    ]
-  }),
-  defineOrganization({
-    name: 'TeploGarden',
-    logo: 'https://teplogarden.ru/images/logo.svg',
-    description: 'Производитель премиальных теплиц из алюминия со стеклом',
-    sameAs: [
-      'https://instagram.com/teplogarden',
-      'https://facebook.com/teplogarden'
-    ],
-    contactPoint: {
-      '@type': 'ContactPoint',
-      telephone: '+79946668833',
-      contactType: 'customer service'
-    }
-  }),
-  defineWebPage({
-    '@type': 'AboutPage',
-    name: 'О компании TeploGarden',
-    description: 'TeploGarden - производитель премиальных теплиц из алюминия со стеклом',
-    publisher: {
-      '@type': 'Organization',
-      name: 'TeploGarden',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://teplogarden.ru/images/logo.svg'
-      }
-    }
-  })
-])
+    useSchemaOrg([
+        defineBreadcrumb({
+            itemListElement: [
+                {
+                    name: 'Главная',
+                    item: 'https://teplogarden.ru',
+                },
+                {
+                    name: 'О компании',
+                    item: 'https://teplogarden.ru/about',
+                },
+            ],
+        }),
+        defineOrganization({
+            name: 'TeploGarden',
+            logo: 'https://teplogarden.ru/images/logo.svg',
+            description: 'Производитель премиальных теплиц из алюминия со стеклом',
+            sameAs: ['https://instagram.com/teplogarden', 'https://facebook.com/teplogarden'],
+            contactPoint: {
+                '@type': 'ContactPoint',
+                telephone: '+79946668833',
+                contactType: 'customer service',
+            },
+        }),
+        defineWebPage({
+            '@type': 'AboutPage',
+            name: 'О компании TeploGarden',
+            description: 'TeploGarden - производитель премиальных теплиц из алюминия со стеклом',
+            publisher: {
+                '@type': 'Organization',
+                name: 'TeploGarden',
+                logo: {
+                    '@type': 'ImageObject',
+                    url: 'https://teplogarden.ru/images/logo.svg',
+                },
+            },
+        }),
+    ]);
 </script>
 
 <style scoped lang="scss">
@@ -304,7 +356,6 @@ useSchemaOrg([
                         grid-template-columns: 1fr;
                     }
 
-
                     &-item {
                         padding: 24px;
                         border: 1px solid $red;
@@ -328,7 +379,7 @@ useSchemaOrg([
             }
 
             &-why {
-                margin-top: 24px;
+                margin-top: 32px;
 
                 &-title {
                     font-size: 24px;
@@ -344,15 +395,55 @@ useSchemaOrg([
                     color: #666;
                     margin-top: 16px;
 
-
                     & strong {
                         font-weight: 600;
                     }
                 }
             }
 
+            &-history {
+                margin-top: 32px;
+
+                &-title {
+                    font-size: 24px;
+                    font-weight: 600;
+                    line-height: 140%;
+                    color: #141414;
+                    text-align: center;
+                }
+
+                &-container {
+                    display: block;
+                    /* grid-template-columns: repeat(2, 1fr); */
+                    gap: 24px;
+                    margin-top: 24px;
+                    align-items: center;
+
+                    @media screen and (max-width: 767px) {
+                        grid-template-columns: 1fr;
+                    }
+
+                    &-block {
+                        padding: 16px;
+                        border-radius: 16px;
+                        background: #eceae1;
+
+                        &-text {
+                            font-size: 18px;
+                            line-height: 160%;
+                            color: #4b4b4b;
+                        }
+                    }
+                    & img {
+                        border-radius: 16px;
+                        overflow: hidden;
+                        object-fit: cover;
+                    }
+                }
+            }
+
             &-options {
-                margin-top: 24px;
+                margin-top: 32px;
 
                 &-title {
                     font-size: 24px;
@@ -360,7 +451,6 @@ useSchemaOrg([
                     line-height: 140%;
                     color: #141414;
                     margin-bottom: 16px;
-
                 }
 
                 &-list {
